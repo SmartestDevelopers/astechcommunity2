@@ -152,33 +152,6 @@
                         <a data-barba href="#">
                           Home <i class="icon-chevron-right text-13 ml-10"></i>
                         </a>
-
-                        <ul class="subnav">
-                          <li class="menu__backButton js-nav-list-back">
-                            <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Home</a>
-                          </li>
-
-                          <li><a href="index.html">Home 1</a></li>
-
-                          <li><a href="home-2.html">Home 2</a></li>
-
-                          <li><a href="home-3.html">Home 3</a></li>
-
-                          <li><a href="home-4.html">Home 4</a></li>
-
-                          <li><a href="home-5.html">Home 5</a></li>
-
-                          <li><a href="home-6.html">Home 6</a></li>
-
-                          <li><a href="home-7.html">Home 7</a></li>
-
-                          <li><a href="home-8.html">Home 8</a></li>
-
-                          <li><a href="home-9.html">Home 9</a></li>
-
-                          <li><a href="home-10.html">Home 10</a></li>
-
-                        </ul>
                       </li>
 
                       <li class="menu-item-has-children -has-mega-menu">
@@ -596,20 +569,6 @@
 
                       <li class="menu-item-has-children">
                         <a data-barba href="#">Blog <i class="icon-chevron-right text-13 ml-10"></i></a>
-                        <ul class="subnav">
-                          <li class="menu__backButton js-nav-list-back">
-                            <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Blog</a>
-                          </li>
-
-                          <li><a href="blog-list-1.html">Blog List 1</a></li>
-
-                          <li><a href="blog-list-2.html">Blog List 2</a></li>
-
-                          <li><a href="blog-list-3.html">Blog List 3</a></li>
-
-                          <li><a href="blog-single.html">Blog Single</a></li>
-
-                        </ul>
                       </li>
 
                       <li class="menu-item-has-children">

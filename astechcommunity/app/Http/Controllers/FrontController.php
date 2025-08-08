@@ -92,6 +92,26 @@ class FrontController extends Controller
         ));
     }
 
+    public function freelancers()
+{
+    return view('freelancers');
+}
+
+public function mentors()
+{
+    return view('mentors');
+}
+
+public function clients()
+{
+    return view('clients');
+}
+
+public function charity()
+{
+    return view('charity');
+}
+
     /**
      * Show the about page.
      *

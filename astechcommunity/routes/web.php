@@ -31,3 +31,9 @@ Route::get('/contact', 'FrontController@contact');
 Route::get('/membership-plans', 'FrontController@membershipPlans');
 Route::get('/faqs', 'FrontController@faqs');
 Route::get('/shop', 'FrontController@shop');
+
+// New routes for the four tabs
+Route::get('/freelancers', 'FrontController@freelancers')->name('freelancers');
+Route::get('/mentors', 'FrontController@mentors')->name('mentors');
+Route::get('/clients', 'FrontController@clients')->name('clients');
+Route::get('/charity', 'FrontController@charity')->name('charity');
