@@ -676,7 +676,7 @@
                       </li>
 
                       <li>
-                        <a data-barba href="contact-1.html">Contact</a>
+                        <a data-barba href="{{url('/contact')  }}">Contact</a>
                       </li>
                     </ul>
                   </div>
