@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'FrontController@index');
-Route::get('/courses', 'FrontController@courses');
+Route::get('/courses', 'FrontController@courses')->name('courses');
 Route::get('/courses/{course:slug}', 'FrontController@showCourse')->name('courses.show');
 Route::get('/about', 'FrontController@about');
 Route::get('/services', 'FrontController@services');
