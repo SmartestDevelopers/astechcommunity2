@@ -1,4 +1,4 @@
-@if ($paginator->hasPages())
+﻿@if ($paginator->hasPages())
     <div class="pagination -arrows">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
@@ -42,3 +42,4 @@
         @endif
     </div>
 @endif
+

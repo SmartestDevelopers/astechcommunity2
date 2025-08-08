@@ -389,7 +389,7 @@
             <div class="w-100"></div>
 
             <div class="col-auto">
-              <a href="courses-list-3.html" class="button -md -outline-white text-white mt-45 md:mt-20">Get Started Now</a>
+              <a href="{{ route('courses.list-3') }}" class="button -md -outline-white text-white mt-45 md:mt-20">Get Started Now</a>
             </div>
           </div>
         </div>
@@ -400,7 +400,7 @@
           <div class="row y-gap-30 items-center">
             <div class="col-lg-6 order-2 order-lg-1">
               <h2 class="text-45 lg:text-40 md:text-30 text-dark-1">Online learning solutions<br class="xl:d-none"> that meet your needs.</h2>
-              <p class="text-dark-1 mt-20">Use the list below to bring attention to your productâ€™s key<br class="lg:d-none"> differentiator.</p>
+              <p class="text-dark-1 mt-20">Use the list below to bring attention to your product’s key<br class="lg:d-none"> differentiator.</p>
 
               <div class="row y-gap-30 pt-60 lg:pt-40">
 
@@ -1117,7 +1117,7 @@
         <div data-anim-wrap class="container">
           <div class="row justify-center">
             <div class="col text-center">
-              <p class="text-lg text-dark-1">Trusted by the worldâ€™s best</p>
+              <p class="text-lg text-dark-1">Trusted by the world’s best</p>
             </div>
           </div>
 
@@ -1165,3 +1165,5 @@
 
 
 @endsection
+
+

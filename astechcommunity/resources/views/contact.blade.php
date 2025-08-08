@@ -1,4 +1,4 @@
-
+﻿
 @extends('layouts.front')
 
 @section('content')
@@ -66,4 +66,5 @@
         </div>
     </section>
 @endsection
+
 

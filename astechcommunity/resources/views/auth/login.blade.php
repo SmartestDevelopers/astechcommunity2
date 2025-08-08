@@ -1,4 +1,4 @@
-@extends('layouts.front')
+﻿@extends('layouts.front')
 
 @section('title', 'Login - Educrat')
 
@@ -78,3 +78,4 @@
             </div>
 </section>
 @endsection
+

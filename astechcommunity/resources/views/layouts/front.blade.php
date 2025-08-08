@@ -122,11 +122,11 @@
         <div class="row justify-between items-center">
 
           <div class="col-auto">
-            <div class="header-left">
+            <div class="header- left">
 
               <div class="header__logo ">
                 <a href="{{ url('/') }}">
-                  <img src="{{asset('template/img/general/logo.svg')}}" alt="logo">
+                  <img style="width:150px;" src="{{asset('Techbold.png')}}" alt="logo">
                 </a>
               </div>
 
@@ -152,6 +152,23 @@
                         <a data-barba href="#">
                           Home <i class="icon-chevron-right text-13 ml-10"></i>
                         </a>
+
+                        <ul class="subnav">
+                          <li class="menu__backButton js-nav-list-back">
+                            <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Home</a>
+                          </li>
+
+                          <li><a href="{{ url('/') }}">Home 1</a></li>
+                          <li><a href="{{ route('pages.home-2') }}">Home 2</a></li>
+                          <li><a href="{{ route('pages.home-3') }}">Home 3</a></li>
+                          <li><a href="{{ route('pages.home-4') }}">Home 4</a></li>
+                          <li><a href="{{ route('pages.home-5') }}">Home 5</a></li>
+                          <li><a href="{{ route('pages.home-6') }}">Home 6</a></li>
+                          <li><a href="{{ route('pages.home-7') }}">Home 7</a></li>
+                          <li><a href="{{ route('pages.home-8') }}">Home 8</a></li>
+                          <li><a href="{{ route('pages.home-9') }}">Home 9</a></li>
+                          <li><a href="{{ route('pages.home-10') }}">Home 10</a></li>
+                        </ul>
                       </li>
 
                       <li class="menu-item-has-children -has-mega-menu">
@@ -166,23 +183,23 @@
 
                                 <ul class="mega__list">
 
-                                  <li><a data-barba href="courses-list-1.html">Course List v1</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-1') }}">Course List v1</a></li>
 
-                                  <li><a data-barba href="courses-list-2.html">Course List v2</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-2') }}">Course List v2</a></li>
 
-                                  <li><a data-barba href="courses-list-3.html">Course List v3</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-3') }}">Course List v3</a></li>
 
-                                  <li><a data-barba href="courses-list-4.html">Course List v4</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-4') }}">Course List v4</a></li>
 
-                                  <li><a data-barba href="courses-list-5.html">Course List v5</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-5') }}">Course List v5</a></li>
 
-                                  <li><a data-barba href="courses-list-6.html">Course List v6</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-6') }}">Course List v6</a></li>
 
-                                  <li><a data-barba href="courses-list-7.html">Course List v7</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-7') }}">Course List v7</a></li>
 
-                                  <li><a data-barba href="courses-list-8.html">Course List v8</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-8') }}">Course List v8</a></li>
 
-                                  <li><a data-barba href="courses-list-9.html">Course List v9</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-9') }}">Course List v9</a></li>
 
                                 </ul>
 
@@ -193,17 +210,17 @@
 
                                 <ul class="mega__list">
 
-                                  <li><a data-barba href="courses-single-1.html">Course Single v1</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-1') }}">Course Single v1</a></li>
 
-                                  <li><a data-barba href="courses-single-2.html">Course Single v2</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-2') }}">Course Single v2</a></li>
 
-                                  <li><a data-barba href="courses-single-3.html">Course Single v3</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-3') }}">Course Single v3</a></li>
 
-                                  <li><a data-barba href="courses-single-4.html">Course Single v4</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-4') }}">Course Single v4</a></li>
 
-                                  <li><a data-barba href="courses-single-5.html">Course Single v5</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-5') }}">Course Single v5</a></li>
 
-                                  <li><a data-barba href="courses-single-6.html">Course Single v6</a></li>
+                                  <li><a data-barba href="{{ route('courses.single-6') }}">Course Single v6</a></li>
 
                                 </ul>
 
@@ -214,19 +231,13 @@
 
                                 <ul class="mega__list">
 
-                                  <li><a data-barba href="lesson-single-1.html">Lesson Page v1</a></li>
-
-                                  <li><a data-barba href="lesson-single-2.html">Lesson Page v2</a></li>
-
-                                  <li><a data-barba href="instructors-list-1.html">Instructors List v1</a></li>
-
-                                  <li><a data-barba href="instructors-list-2.html">Instructors List v2</a></li>
-
-                                  <li><a data-barba href="instructors-single.html">Instructors Single</a></li>
-
-                                  <li><a data-barba href="instructors-become.html">Become an Instructor</a></li>
-
-                                </ul>
+                                                                  <li><a data-barba href="{{ route('pages.lesson-single-1') }}">Lesson Page v1</a></li>
+                                                                  <li><a data-barba href="{{ route('pages.lesson-single-2') }}">Lesson Page v2</a></li>
+                                                                  <li><a data-barba href="{{ route('pages.instructors-list-1') }}">Instructors List v1</a></li>
+                                                                  <li><a data-barba href="{{ route('pages.instructors-list-2') }}">Instructors List v2</a></li>
+                                                                  <li><a data-barba href="{{ route('pages.instructors-single') }}">Instructors Single</a></li>
+                                                                  <li><a data-barba href="{{ route('pages.instructors-become') }}">Become an Instructor</a></li>
+                                                                </ul>
 
                               </div>
 
@@ -235,39 +246,39 @@
 
                                 <ul class="mega__list">
 
-                                  <li><a data-barba href="dashboard.html">Dashboard</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.index') }}">Dashboard</a></li>
 
-                                  <li><a data-barba href="dshb-courses.html">My Courses</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.courses') }}">My Courses</a></li>
 
-                                  <li><a data-barba href="dshb-bookmarks.html">Bookmarks</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.bookmarks') }}">Bookmarks</a></li>
 
-                                  <li><a data-barba href="dshb-listing.html">Add Listing</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.listing') }}">Add Listing</a></li>
 
-                                  <li><a data-barba href="dshb-reviews.html">Reviews</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.reviews') }}">Reviews</a></li>
 
-                                  <li><a data-barba href="dshb-settings.html">Settings</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.settings') }}">Settings</a></li>
 
-                                  <li><a data-barba href="dshb-administration.html">Administration</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.administration') }}">Administration</a></li>
 
-                                  <li><a data-barba href="dshb-assignment.html">Assignment</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.assignment') }}">Assignment</a></li>
 
-                                  <li><a data-barba href="dshb-calendar.html">Calendar</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.calendar') }}">Calendar</a></li>
 
-                                  <li><a data-barba href="dshb-dashboard.html">Single Dashboard</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.main') }}">Single Dashboard</a></li>
 
-                                  <li><a data-barba href="dshb-dictionary.html">Dictionary</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.dictionary') }}">Dictionary</a></li>
 
-                                  <li><a data-barba href="dshb-forums.html">Forums</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.forums') }}">Forums</a></li>
 
-                                  <li><a data-barba href="dshb-grades.html">Grades</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.grades') }}">Grades</a></li>
 
-                                  <li><a data-barba href="dshb-messages.html">Messages</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.messages') }}">Messages</a></li>
 
-                                  <li><a data-barba href="dshb-participants.html">Participants</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.participants') }}">Participants</a></li>
 
-                                  <li><a data-barba href="dshb-quiz.html">Quiz</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.quiz') }}">Quiz</a></li>
 
-                                  <li><a data-barba href="dshb-survey.html">Survey</a></li>
+                                  <li><a data-barba href="{{ route('dashboard.survey') }}">Survey</a></li>
 
                                 </ul>
 
@@ -290,7 +301,7 @@
 
                                   <li><a data-barba href="#">Design</a></li>
 
-                                  <li><a data-barba href="#">View All Courses</a></li>
+                                  <li><a data-barba href="{{ route('courses.list-1') }}">View All Courses</a></li>
 
                                 </ul>
 
@@ -323,39 +334,39 @@
                               </li>
 
                               <li>
-                                <a href="courses-list-1.html">Course List v1</a>
+                                <a href="{{ route('courses.list-1') }}">Course List v1</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-2.html">Course List v2</a>
+                                <a href="{{ route('courses.list-2') }}">Course List v2</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-3.html">Course List v3</a>
+                                <a href="{{ route('courses.list-3') }}">Course List v3</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-4.html">Course List v4</a>
+                                <a href="{{ route('courses.list-4') }}">Course List v4</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-5.html">Course List v5</a>
+                                <a href="{{ route('courses.list-5') }}">Course List v5</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-6.html">Course List v6</a>
+                                <a href="{{ route('courses.list-6') }}">Course List v6</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-7.html">Course List v7</a>
+                                <a href="{{ route('courses.list-7') }}">Course List v7</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-8.html">Course List v8</a>
+                                <a href="{{ route('courses.list-8') }}">Course List v8</a>
                               </li>
 
                               <li>
-                                <a href="courses-list-all.html">Course List All</a>
+                                <a href="{{ route('courses.list-all') }}">Course List All</a>
                               </li>
 
                             </ul>
@@ -370,27 +381,27 @@
                               </li>
 
                               <li>
-                                <a href="courses-single-1.html">Course Single v1</a>
+                                <a href="{{ route('courses.single-1') }}">Course Single v1</a>
                               </li>
 
                               <li>
-                                <a href="courses-single-2.html">Course Single v2</a>
+                                <a href="{{ route('courses.single-2') }}">Course Single v2</a>
                               </li>
 
                               <li>
-                                <a href="courses-single-3.html">Course Single v3</a>
+                                <a href="{{ route('courses.single-3') }}">Course Single v3</a>
                               </li>
 
                               <li>
-                                <a href="courses-single-4.html">Course Single v4</a>
+                                <a href="{{ route('courses.single-4') }}">Course Single v4</a>
                               </li>
 
                               <li>
-                                <a href="courses-single-5.html">Course Single v5</a>
+                                <a href="{{ route('courses.single-5') }}">Course Single v5</a>
                               </li>
 
                               <li>
-                                <a href="courses-single-6.html">Course Single v6</a>
+                                <a href="{{ route('courses.single-6') }}">Course Single v6</a>
                               </li>
 
                             </ul>
@@ -405,27 +416,27 @@
                               </li>
 
                               <li>
-                                <a href="lesson-single-1.html">Lesson Page v1</a>
+                                <a href="{{ route('pages.lesson-single-1') }}">Lesson Page v1</a>
                               </li>
 
                               <li>
-                                <a href="lesson-single-2.html">Lesson Page v2</a>
+                                <a href="{{ route('pages.lesson-single-2') }}">Lesson Page v2</a>
                               </li>
 
                               <li>
-                                <a href="instructors-list-1.html">Instructors List v1</a>
+                                <a href="{{ route('pages.instructors-list-1') }}">Instructors List v1</a>
                               </li>
 
                               <li>
-                                <a href="instructors-list-2.html">Instructors List v2</a>
+                                <a href="{{ route('pages.instructors-list-2') }}">Instructors List v2</a>
                               </li>
 
                               <li>
-                                <a href="instructors-single.html">Instructors Single</a>
+                                <a href="{{ route('pages.instructors-single') }}">Instructors Single</a>
                               </li>
 
                               <li>
-                                <a href="instructors-become.html">Become an Instructor</a>
+                                <a href="{{ route('pages.instructors-become') }}">Become an Instructor</a>
                               </li>
 
                             </ul>
@@ -440,71 +451,71 @@
                               </li>
 
                               <li>
-                                <a href="dashboard.html">Dashboard</a>
+                                <a href="{{ route('dashboard.index') }}">Dashboard</a>
                               </li>
 
                               <li>
-                                <a href="dshb-courses.html">My Courses</a>
+                                <a href="{{ route('dashboard.courses') }}">My Courses</a>
                               </li>
 
                               <li>
-                                <a href="dshb-bookmarks.html">Bookmarks</a>
+                                <a href="{{ route('dashboard.bookmarks') }}">Bookmarks</a>
                               </li>
 
                               <li>
-                                <a href="dshb-listing.html">Add Listing</a>
+                                <a href="{{ route('dashboard.listing') }}">Add Listing</a>
                               </li>
 
                               <li>
-                                <a href="dshb-reviews.html">Reviews</a>
+                                <a href="{{ route('dashboard.reviews') }}">Reviews</a>
                               </li>
 
                               <li>
-                                <a href="dshb-settings.html">Settings</a>
+                                <a href="{{ route('dashboard.settings') }}">Settings</a>
                               </li>
 
                               <li>
-                                <a href="dshb-administration.html">Administration</a>
+                                <a href="{{ route('dashboard.administration') }}">Administration</a>
                               </li>
 
                               <li>
-                                <a href="dshb-assignment.html">Assignment</a>
+                                <a href="{{ route('dashboard.assignment') }}">Assignment</a>
                               </li>
 
                               <li>
-                                <a href="dshb-calendar.html">Calendar</a>
+                                <a href="{{ route('dashboard.calendar') }}">Calendar</a>
                               </li>
 
                               <li>
-                                <a href="dshb-dashboard.html">Single Dashboard</a>
+                                <a href="{{ route('dashboard.main') }}">Single Dashboard</a>
                               </li>
 
                               <li>
-                                <a href="dshb-dictionary.html">Dictionary</a>
+                                <a href="{{ route('dashboard.dictionary') }}">Dictionary</a>
                               </li>
 
                               <li>
-                                <a href="dshb-forums.html">Forums</a>
+                                <a href="{{ route('dashboard.forums') }}">Forums</a>
                               </li>
 
                               <li>
-                                <a href="dshb-grades.html">Grades</a>
+                                <a href="{{ route('dashboard.grades') }}">Grades</a>
                               </li>
 
                               <li>
-                                <a href="dshb-messages.html">Messages</a>
+                                <a href="{{ route('dashboard.messages') }}">Messages</a>
                               </li>
 
                               <li>
-                                <a href="dshb-participants.html">Participants</a>
+                                <a href="{{ route('dashboard.participants') }}">Participants</a>
                               </li>
 
                               <li>
-                                <a href="dshb-quiz.html">Quiz</a>
+                                <a href="{{ route('dashboard.quiz') }}">Quiz</a>
                               </li>
 
                               <li>
-                                <a href="dshb-survey.html">Survey</a>
+                                <a href="{{ route('dashboard.survey') }}">Survey</a>
                               </li>
 
                             </ul>
@@ -543,7 +554,7 @@
                               </li>
 
                               <li>
-                                <a href="#">View All Courses</a>
+                                <a href="{{ route('courses.list-1') }}">View All Courses</a>
                               </li>
 
                             </ul>
@@ -558,17 +569,29 @@
                             <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Events</a>
                           </li>
 
-                          <li><a href="event-list-1.html">Event List 1</a></li>
-
-                          <li><a href="event-list-2.html">Event List 2</a></li>
-
-                          <li><a href="event-single.html">Event Single</a></li>
+                          <li><a href="{{ route('pages.event-list-1') }}">Event List 1</a></li>
+                          <li><a href="{{ route('pages.event-list-2') }}">Event List 2</a></li>
+                          <li><a href="{{ route('pages.event-single') }}">Event Single</a></li>
 
                         </ul>
                       </li>
 
                       <li class="menu-item-has-children">
                         <a data-barba href="#">Blog <i class="icon-chevron-right text-13 ml-10"></i></a>
+                        <ul class="subnav">
+                          <li class="menu__backButton js-nav-list-back">
+                            <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Blog</a>
+                          </li>
+
+                          <li><a href="{{ route('pages.blog-list-1') }}">Blog List 1</a></li>
+                          <li><a href="{{ route('pages.blog-list-2') }}">Blog List 2</a></li>
+                          <li><a href="{{ route('pages.blog-single') }}">Blog Single</a></li>
+                          <li><a href="{{ route('pages.blog-grid') }}">Blog Grid</a></li>
+                          <li><a href="{{ route('pages.blog-archive') }}">Blog Archive</a></li>
+                          <li><a href="{{ route('pages.blog-category') }}">Blog Category</a></li>
+                          <li><a href="{{ route('pages.blog-tag') }}">Blog Tag</a></li>
+                          <li><a href="{{ route('pages.blog-author') }}">Blog Author</a></li>
+                        </ul>
                       </li>
 
                       <li class="menu-item-has-children">
@@ -603,11 +626,11 @@
                               </li>
 
                               <li>
-                                <a href="contact-1.html">Contact 1</a>
+                                <a href="{{ route('pages.contact-1') }}">Contact 1</a>
                               </li>
 
                               <li>
-                                <a href="contact-2.html">Contact 2</a>
+                                <a href="{{ route('pages.contact-2') }}">Contact 2</a>
                               </li>
 
                             </ul>
@@ -621,23 +644,23 @@
                               </li>
 
                               <li>
-                                <a href="shop-cart.html">Shop Cart</a>
+                                <a href="{{ route('pages.shop-cart') }}">Shop Cart</a>
                               </li>
 
                               <li>
-                                <a href="shop-checkout.html">Shop Checkout</a>
+                                <a href="{{ route('pages.shop-checkout') }}">Shop Checkout</a>
                               </li>
 
                               <li>
-                                <a href="shop-list.html">Shop List</a>
+                                <a href="{{ route('pages.shop-list') }}">Shop List</a>
                               </li>
 
                               <li>
-                                <a href="shop-order.html">Shop Order</a>
+                                <a href="{{ route('pages.shop-order') }}">Shop Order</a>
                               </li>
 
                               <li>
-                                <a href="shop-single.html">Shop Single</a>
+                                <a href="{{ route('pages.shop-single') }}">Shop Single</a>
                               </li>
 
                             </ul>
@@ -645,19 +668,19 @@
 
 
                           <li>
-                            <a href="pricing.html">Membership plans</a>
+                            <a href="{{ route('pages.pricing') }}">Membership plans</a>
                           </li>
 
                           <li>
-                            <a href="404.html">404 Page</a>
+                            <a href="{{ route('pages.404') }}">404 Page</a>
                           </li>
 
                           <li>
-                            <a href="terms.html">FAQs</a>
+                            <a href="{{ route('pages.terms') }}">FAQs</a>
                           </li>
 
                           <li>
-                            <a href="help-center.html">Help Center</a>
+                            <a href="{{ route('pages.help-center') }}">Help Center</a>
                           </li>
 
                           <li>
@@ -669,7 +692,7 @@
                           </li>
 
                           <li>
-                            <a href="ui-elements.html">UI Elements</a>
+                            <a href="{{ route('pages.ui-elements') }}">UI Elements</a>
                           </li>
 
                         </ul>
@@ -747,12 +770,12 @@
                           <div class="text-17 text-dark-1 fw-500">Popular Right Now</div>
 
                           <div class="d-flex y-gap-5 flex-column mt-20">
-                            <a href="courses-single-1.html" class="text-dark-1">The Ultimate Drawing Course - Beginner to Advanced</a>
-                            <a href="courses-single-2.html" class="text-dark-1">Character Art School: Complete Character Drawing Course</a>
-                            <a href="courses-single-3.html" class="text-dark-1">Complete Blender Creator: Learn 3D Modelling for Beginners</a>
-                            <a href="courses-single-4.html" class="text-dark-1">User Experience Design Essentials - Adobe XD UI UX Design</a>
-                            <a href="courses-single-5.html" class="text-dark-1">Graphic Design Masterclass - Learn GREAT Design</a>
-                            <a href="courses-single-6.html" class="text-dark-1">Adobe Photoshop CC – Essentials Training Course</a>
+                            <a href="{{ route('courses.single-1') }}" class="text-dark-1">The Ultimate Drawing Course - Beginner to Advanced</a>
+                            <a href="{{ route('courses.single-2') }}" class="text-dark-1">Character Art School: Complete Character Drawing Course</a>
+                            <a href="{{ route('courses.single-3') }}" class="text-dark-1">Complete Blender Creator: Learn 3D Modelling for Beginners</a>
+                            <a href="{{ route('courses.single-4') }}" class="text-dark-1">User Experience Design Essentials - Adobe XD UI UX Design</a>
+                            <a href="{{ route('courses.single-5') }}" class="text-dark-1">Graphic Design Masterclass - Learn GREAT Design</a>
+                            <a href="{{ route('courses.single-6') }}" class="text-dark-1">Adobe Photoshop CC � Essentials Training Course</a>
                           </div>
 
                           <div class="mt-30">
@@ -956,12 +979,12 @@
                 <div class="col-lg-4 col-md-4">
                   <div class="text-17 fw-500 text-white uppercase mb-25">ABOUT</div>
                   <div class="d-flex y-gap-10 flex-column text-white">
-                    <a href="about-1.html">About Us</a>
-                    <a href="blog-list-1.html">Learner Stories</a>
-                    <a href="instructor-become.html">Careers</a>
-                    <a href="blog-list-1.html">Press</a>
+                    <a href="{{ route('pages.about-1') }}">About Us</a>
+                    <a href="{{ route('pages.blog-list-1') }}">Learner Stories</a>
+                    <a href="{{ route('pages.instructor-become') }}">Careers</a>
+                    <a href="{{ route('pages.blog-list-1') }}">Press</a>
                     <a href="#">Leadership</a>
-                    <a href="contact-1.html">Contact Us</a>
+                    <a href="{{ route('pages.contact-1') }}">Contact Us</a>
                   </div>
                 </div>
 
@@ -970,24 +993,24 @@
                   <div class="row justify-between y-gap-20">
                     <div class="col-md-6">
                       <div class="d-flex y-gap-10 flex-column text-white">
-                        <a href="courses-single-1.html">Development</a>
-                        <a href="courses-single-2.html">Business</a>
-                        <a href="courses-single-3.html">Finance & Accounting</a>
-                        <a href="courses-single-4.html">IT & Software</a>
-                        <a href="courses-single-5.html">Office Productivity</a>
-                        <a href="courses-single-6.html">Design</a>
-                        <a href="courses-single-1.html">Marketing</a>
+                        <a href="{{ route('courses.single-1') }}">Development</a>
+                        <a href="{{ route('courses.single-2') }}">Business</a>
+                        <a href="{{ route('courses.single-3') }}">Finance & Accounting</a>
+                        <a href="{{ route('courses.single-4') }}">IT & Software</a>
+                        <a href="{{ route('courses.single-5') }}">Office Productivity</a>
+                        <a href="{{ route('courses.single-6') }}">Design</a>
+                        <a href="{{ route('courses.single-1') }}">Marketing</a>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="d-flex y-gap-10 flex-column text-white">
-                        <a href="courses-single-1.html">Lifiestyle</a>
-                        <a href="courses-single-2.html">Photography & Video</a>
-                        <a href="courses-single-3.html">Health & Fitness</a>
-                        <a href="courses-single-4.html">Music</a>
-                        <a href="courses-single-5.html">UX Design</a>
-                        <a href="courses-single-6.html">Seo</a>
+                        <a href="{{ route('courses.single-1') }}">Lifiestyle</a>
+                        <a href="{{ route('courses.single-2') }}">Photography & Video</a>
+                        <a href="{{ route('courses.single-3') }}">Health & Fitness</a>
+                        <a href="{{ route('courses.single-4') }}">Music</a>
+                        <a href="{{ route('courses.single-5') }}">UX Design</a>
+                        <a href="{{ route('courses.single-6') }}">Seo</a>
                       </div>
                     </div>
                   </div>
@@ -1034,7 +1057,7 @@
             <div class="row justify-between items-center y-gap-20">
               <div class="col-auto">
                 <div class="d-flex items-center h-100 text-white">
-                  © 2022 Educrat. All Right Reserved.
+                  � 2022 Educrat. All Right Reserved.
                 </div>
               </div>
 
@@ -1042,11 +1065,11 @@
                 <div class="d-flex x-gap-20 y-gap-20 items-center flex-wrap">
                   <div>
                     <div class="d-flex x-gap-15 text-white">
-                      <a href="help-center.html">Help</a>
-                      <a href="terms.html">Privacy Policy</a>
-                      <a href="terms.html">Cookie Notice</a>
-                      <a href="terms.html">Security</a>
-                      <a href="terms.html">Terms of Use</a>
+                      <a href="{{ route('pages.help-center') }}">Help</a>
+                      <a href="{{ route('pages.terms') }}">Privacy Policy</a>
+                      <a href="{{ route('pages.terms') }}">Cookie Notice</a>
+                      <a href="{{ route('pages.terms') }}">Security</a>
+                      <a href="{{ route('pages.terms') }}">Terms of Use</a>
                     </div>
                   </div>
 
@@ -1072,3 +1095,4 @@
   <script src="{{asset('template/js/main.js')}}"></script>
 </body>
 </html>
+
