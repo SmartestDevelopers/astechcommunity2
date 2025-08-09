@@ -875,8 +875,35 @@
               </div>
 
               <div class="header-right__buttons d-flex items-center ml-30 xl:ml-20 md:d-none">
-                <a href="{{ route('login') }}" class="button -underline text-white">Log in</a>
-                <a href="{{ route('register') }}" class="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20">Sign up</a>
+                @guest
+                  <a href="{{ route('login') }}" class="button -underline text-white">Log in</a>
+                  <a href="{{ route('register') }}" class="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20">Sign up</a>
+                @else
+                  <a href="{{ route('admin.dashboard') }}" class="button -underline text-white mr-20">Admin Panel</a>
+                  <div class="relative">
+                    <button class="d-flex items-center text-white" onclick="toggleUserMenu()">
+                      <i class="icon-person text-16 mr-10"></i>
+                      {{ Auth::user()->name }}
+                      <i class="icon-chevron-down text-9 ml-10"></i>
+                    </button>
+                    <div id="user-menu" class="toggle-element" style="display: none; position: absolute; top: 100%; right: 0; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); min-width: 200px; z-index: 1000;">
+                      <div class="py-10">
+                        <a href="{{ route('admin.dashboard') }}" class="d-flex items-center px-20 py-10 text-dark-1 hover:bg-light-1">
+                          <i class="icon-settings text-16 mr-10"></i>
+                          Admin Dashboard
+                        </a>
+                        <a href="{{ route('logout') }}" class="d-flex items-center px-20 py-10 text-dark-1 hover:bg-light-1"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          <i class="icon-log-out text-16 mr-10"></i>
+                          Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                @endguest
               </div>
             </div>
           </div>
@@ -1093,6 +1120,26 @@
   <script src="{{asset('template/unpkg.com/leaflet%401.7.1/dist/leaflet.js')}}" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="{{asset('template/js/vendors.js')}}"></script>
   <script src="{{asset('template/js/main.js')}}"></script>
+  
+  <script>
+    function toggleUserMenu() {
+      const menu = document.getElementById('user-menu');
+      if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'block';
+      } else {
+        menu.style.display = 'none';
+      }
+    }
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('user-menu');
+      const button = event.target.closest('button');
+      if (menu && !menu.contains(event.target) && (!button || button.getAttribute('onclick') !== 'toggleUserMenu()')) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
 

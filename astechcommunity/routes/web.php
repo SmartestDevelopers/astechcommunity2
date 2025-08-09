@@ -138,3 +138,8 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::get('/quiz', 'DashboardController@dshbQuiz')->name('quiz');
     Route::get('/survey', 'DashboardController@dshbSurvey')->name('survey');
 });
+
+// Include Admin Routes (protected by auth middleware - consider adding admin middleware)
+Route::middleware('auth')->group(function () {
+    require __DIR__.'/admin.php';
+});
