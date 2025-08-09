@@ -22,7 +22,31 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'FrontController@index');
 Route::get('/courses', 'FrontController@courses')->name('courses');
+
+// Course Controller Routes - MOVED BEFORE wildcard route to avoid conflicts
+Route::prefix('courses')->name('courses.')->group(function () {
+    Route::get('/list-1', 'CourseController@coursesList1')->name('list-1');
+    Route::get('/list-2', 'CourseController@coursesList2')->name('list-2');
+    Route::get('/list-3', 'CourseController@coursesList3')->name('list-3');
+    Route::get('/list-4', 'CourseController@coursesList4')->name('list-4');
+    Route::get('/list-5', 'CourseController@coursesList5')->name('list-5');
+    Route::get('/list-6', 'CourseController@coursesList6')->name('list-6');
+    Route::get('/list-7', 'CourseController@coursesList7')->name('list-7');
+    Route::get('/list-8', 'CourseController@coursesList8')->name('list-8');
+    Route::get('/list-9', 'CourseController@coursesList9')->name('list-9');
+    Route::get('/list-all', 'CourseController@coursesListAll')->name('list-all');
+    
+    Route::get('/single-1', 'CourseController@coursesSingle1')->name('single-1');
+    Route::get('/single-2', 'CourseController@coursesSingle2')->name('single-2');
+    Route::get('/single-3', 'CourseController@coursesSingle3')->name('single-3');
+    Route::get('/single-4', 'CourseController@coursesSingle4')->name('single-4');
+    Route::get('/single-5', 'CourseController@coursesSingle5')->name('single-5');
+    Route::get('/single-6', 'CourseController@coursesSingle6')->name('single-6');
+});
+
+// This wildcard route MUST come after the specific course routes above
 Route::get('/courses/{course:slug}', 'FrontController@showCourse')->name('courses.show');
+
 Route::get('/about', 'FrontController@about');
 Route::get('/services', 'FrontController@services');
 Route::get('/events', 'FrontController@events');
@@ -97,26 +121,6 @@ Route::prefix('pages')->name('pages.')->group(function () {
     Route::get('/shop-order', 'PageController@shopOrder')->name('shop-order');
 });
 
-// Course Controller Routes
-Route::prefix('courses')->name('courses.')->group(function () {
-    Route::get('/list-1', 'CourseController@coursesList1')->name('list-1');
-    Route::get('/list-2', 'CourseController@coursesList2')->name('list-2');
-    Route::get('/list-3', 'CourseController@coursesList3')->name('list-3');
-    Route::get('/list-4', 'CourseController@coursesList4')->name('list-4');
-    Route::get('/list-5', 'CourseController@coursesList5')->name('list-5');
-    Route::get('/list-6', 'CourseController@coursesList6')->name('list-6');
-    Route::get('/list-7', 'CourseController@coursesList7')->name('list-7');
-    Route::get('/list-8', 'CourseController@coursesList8')->name('list-8');
-    Route::get('/list-9', 'CourseController@coursesList9')->name('list-9');
-    Route::get('/list-all', 'CourseController@coursesListAll')->name('list-all');
-    
-    Route::get('/single-1', 'CourseController@coursesSingle1')->name('single-1');
-    Route::get('/single-2', 'CourseController@coursesSingle2')->name('single-2');
-    Route::get('/single-3', 'CourseController@coursesSingle3')->name('single-3');
-    Route::get('/single-4', 'CourseController@coursesSingle4')->name('single-4');
-    Route::get('/single-5', 'CourseController@coursesSingle5')->name('single-5');
-    Route::get('/single-6', 'CourseController@coursesSingle6')->name('single-6');
-});
 
 // Dashboard Routes (protected by auth middleware)
 Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
