@@ -30,6 +30,16 @@ class Course extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    
+    public function reviews()
+    {
+        return $this->hasMany(CourseReview::class);
+    }
+    
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
     public function getRouteKeyName()
     {
