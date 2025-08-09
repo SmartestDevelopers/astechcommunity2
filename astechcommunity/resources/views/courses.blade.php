@@ -153,7 +153,7 @@
                                 <a href="{{ route('courses.show', $course->slug) }}" class="coursesCard -type-1 -hover-shadow border-light rounded-8">
                                     <div class="relative">
                                         <div class="coursesCard__image overflow-hidden rounded-top-8">
-                                            <img class="w-1/1" src="{{ $course->image ? asset('storage/' . $course->image) : asset('template/img/coursesCards/'.($loop->iteration).'.png') }}" alt="{{ $course->title }}">
+                                            <img class="w-1/1" src="{{ getImageUrl($course->image, 'course', $course->title, '300x200') }}" alt="{{ $course->title }}" onerror="this.src='{{ getImageUrl(null, 'course', $course->title, '300x200') }}'; this.onerror=null;">
                                             <div class="coursesCard__image_overlay rounded-top-8"></div>
                                         </div>
                                         <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
@@ -205,7 +205,7 @@
 
                                         <div class="coursesCard-footer">
                                             <div class="coursesCard-footer__author">
-                                                <img src="{{ $course->instructor->image ? asset('storage/' . $course->instructor->image) : asset('template/img/general/avatar-1.png') }}" alt="{{ $course->instructor->name }}">
+                                                <img src="{{ getImageUrl($course->instructor->image, 'user', $course->instructor->name, '40x40') }}" alt="{{ $course->instructor->name }}" onerror="this.src='{{ getImageUrl(null, 'user', $course->instructor->name, '40x40') }}'; this.onerror=null;">
                                                 <div>{{ $course->instructor->name }}</div>
                                             </div>
 

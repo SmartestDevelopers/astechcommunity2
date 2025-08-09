@@ -42,7 +42,21 @@ class CourseReviewSeeder extends Seeder
             'Excellent course quality with professional video production and clear audio.'
         ];
         
-        for ($i = 0; $i < 50; $i++) {
+        if ($users->isEmpty() || $courses->isEmpty()) {
+            $this->command->warn('No users or courses found. Skipping reviews.');
+            return;
+        }
+        
+        $currentReviewCount = CourseReview::count();
+        $targetReviews = 50;
+        $reviewsToCreate = max(0, $targetReviews - $currentReviewCount);
+        
+        $created = 0;
+        $attempts = 0;
+        $maxAttempts = $reviewsToCreate * 3; // Prevent infinite loop
+        
+        while ($created < $reviewsToCreate && $attempts < $maxAttempts) {
+            $attempts++;
             $user = $users->random();
             $course = $courses->random();
             
@@ -59,7 +73,11 @@ class CourseReviewSeeder extends Seeder
                     'review' => $reviewTexts[array_rand($reviewTexts)],
                     'is_approved' => true,
                 ]);
+                $created++;
             }
         }
+        
+        $totalReviews = CourseReview::count();
+        $this->command->info("Total course reviews: {$totalReviews} (created {$created} new)");
     }
 }

@@ -49,38 +49,68 @@ class LessonSeeder extends Seeder
             'https://www.youtube.com/watch?v=kJQP7kiw5Fk'
         ];
         
-        $count = 0;
+        if ($courses->isEmpty()) {
+            $this->command->warn('No courses found. Skipping lessons.');
+            return;
+        }
+        
+        $currentLessonCount = Lesson::count();
+        $targetLessons = 50;
+        $lessonsToCreate = max(0, $targetLessons - $currentLessonCount);
+        
+        $created = 0;
+        $globalCount = $currentLessonCount;
+        
         foreach ($courses as $course) {
-            $lessonsCount = rand(3, 8);
+            if ($created >= $lessonsToCreate) break;
             
-            for ($i = 1; $i <= $lessonsCount; $i++) {
-                if ($count >= 50) break;
+            // Check how many lessons this course already has
+            $existingLessonsCount = Lesson::where('course_id', $course->id)->count();
+            $maxLessonsPerCourse = 8;
+            $lessonsForThisCourse = min(
+                $maxLessonsPerCourse - $existingLessonsCount,
+                $lessonsToCreate - $created
+            );
+            
+            if ($lessonsForThisCourse <= 0) continue;
+            
+            $nextSortOrder = $existingLessonsCount + 1;
+            
+            for ($i = 0; $i < $lessonsForThisCourse; $i++) {
+                $title = $lessonTitles[($globalCount % count($lessonTitles))] . ' - ' . $course->title;
+                $slug = Str::slug($title) . '-' . $globalCount;
                 
-                $title = $lessonTitles[($count % count($lessonTitles))] . ' - ' . $course->title;
+                // Ensure unique slug
+                while (Lesson::where('slug', $slug)->exists()) {
+                    $globalCount++;
+                    $slug = Str::slug($title) . '-' . $globalCount;
+                }
                 
                 Lesson::create([
                     'course_id' => $course->id,
                     'title' => $title,
-                    'slug' => Str::slug($title) . '-' . $count,
+                    'slug' => $slug,
                     'description' => $faker->paragraph(2),
                     'content' => $faker->paragraphs(5, true),
                     'video_url' => $videoUrls[array_rand($videoUrls)],
                     'video_duration' => sprintf('%02d:%02d', rand(5, 60), rand(0, 59)),
                     'attachments' => json_encode([
-                        'slides' => 'lesson-' . $count . '-slides.pdf',
-                        'resources' => 'lesson-' . $count . '-resources.zip'
+                        'slides' => 'lesson-' . $globalCount . '-slides.pdf',
+                        'resources' => 'lesson-' . $globalCount . '-resources.zip'
                     ]),
-                    'sort_order' => $i,
-                    'is_preview' => $i <= 2 ? true : false,
+                    'sort_order' => $nextSortOrder + $i,
+                    'is_preview' => ($nextSortOrder + $i) <= 2 ? true : false,
                     'is_active' => true,
                     'meta_title' => $title . ' | ' . config('app.name'),
                     'meta_description' => $faker->sentence(15),
                 ]);
                 
-                $count++;
+                $created++;
+                $globalCount++;
             }
-            
-            if ($count >= 50) break;
         }
+        
+        $totalLessons = Lesson::count();
+        $this->command->info("Total lessons: {$totalLessons} (created {$created} new)");
     }
 }

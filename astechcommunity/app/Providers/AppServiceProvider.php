@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Register Blade directives for image handling
+        Blade::directive('courseImage', function ($expression) {
+            return "<?php echo getImageUrl($expression, 'course'); ?>";
+        });
+        
+        Blade::directive('userAvatar', function ($expression) {
+            return "<?php echo getAvatarUrl($expression); ?>";
+        });
+        
+        Blade::directive('safeImage', function ($expression) {
+            return "<?php echo getImageUrl($expression); ?>";
+        });
     }
 }

@@ -157,10 +157,11 @@
                         <div class="card course-card h-100">
                             <!-- Course Image -->
                             <div class="position-relative">
-                                <img src="{{ $course->image ?: 'https://via.placeholder.com/400x200/007bff/ffffff?text=' . urlencode($course->title) }}" 
+                                <img src="{{ getImageUrl($course->image, 'course', $course->title, '400x200') }}" 
                                      class="card-img-top" 
                                      alt="{{ $course->title }}"
-                                     style="height: 200px; object-fit: cover;">
+                                     style="height: 200px; object-fit: cover;"
+                                     onerror="this.src='{{ getImageUrl(null, 'course', $course->title, '400x200') }}'; this.onerror=null;">
                                 
                                 <!-- Badges -->
                                 <div class="position-absolute top-0 start-0 p-2">
@@ -192,10 +193,11 @@
 
                                 <!-- Instructor -->
                                 <div class="d-flex align-items-center mb-3">
-                                    <img src="{{ $course->instructor->image ?: 'https://ui-avatars.com/api/?name=' . urlencode($course->instructor->name) . '&background=007bff&color=fff' }}" 
+                                    <img src="{{ getImageUrl($course->instructor->image, 'user', $course->instructor->name, '32x32') }}" 
                                          class="rounded-circle me-2" 
                                          width="32" height="32" 
-                                         alt="{{ $course->instructor->name }}">
+                                         alt="{{ $course->instructor->name }}"
+                                         onerror="this.src='{{ getImageUrl(null, 'user', $course->instructor->name, '32x32') }}'; this.onerror=null;">
                                     <div class="small">
                                         <div class="fw-medium">{{ $course->instructor->name }}</div>
                                         <div class="text-muted">{{ $course->instructor->specialization }}</div>
@@ -296,11 +298,12 @@
                     <h4 class="h5 mb-3">🔥 Popular Courses</h4>
                     @foreach($popularCourses as $popular)
                         <div class="d-flex mb-3">
-                            <img src="{{ $popular->image ?: 'https://via.placeholder.com/60x40/007bff/ffffff' }}" 
+                            <img src="{{ getImageUrl($popular->image, 'course', $popular->title, '60x40') }}" 
                                  class="rounded me-3" 
                                  width="60" height="40" 
                                  style="object-fit: cover;"
-                                 alt="{{ $popular->title }}">
+                                 alt="{{ $popular->title }}"
+                                 onerror="this.src='{{ getImageUrl(null, 'course', $popular->title, '60x40') }}'; this.onerror=null;">
                             <div class="flex-grow-1">
                                 <h6 class="mb-1 small">
                                     <a href="{{ route('courses.single-1') }}" class="text-decoration-none text-dark">
@@ -346,10 +349,11 @@
                 <h4 class="h5 mb-3">👨‍🏫 Top Instructors</h4>
                 @foreach($instructors->take(5) as $instructor)
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ $instructor->image ?: 'https://ui-avatars.com/api/?name=' . urlencode($instructor->name) . '&background=007bff&color=fff' }}" 
+                        <img src="{{ getImageUrl($instructor->image, 'user', $instructor->name, '40x40') }}" 
                              class="rounded-circle me-3" 
                              width="40" height="40" 
-                             alt="{{ $instructor->name }}">
+                             alt="{{ $instructor->name }}"
+                             onerror="this.src='{{ getImageUrl(null, 'user', $instructor->name, '40x40') }}'; this.onerror=null;">
                         <div class="flex-grow-1">
                             <h6 class="mb-1 small">{{ $instructor->name }}</h6>
                             <div class="small text-muted">

@@ -102,6 +102,9 @@ Route::prefix('pages')->name('pages.')->group(function () {
     
     Route::get('/lesson-single-1', 'PageController@lessonSingle1')->name('lesson-single-1');
     Route::get('/lesson-single-2', 'PageController@lessonSingle2')->name('lesson-single-2');
+    Route::get('/lesson-single-dynamic', function() {
+        return view('pages.lesson-single-dynamic');
+    })->name('lesson-single-dynamic');
     
     Route::get('/login-page', 'PageController@loginPage')->name('login-page');
     Route::get('/signup-page', 'PageController@signupPage')->name('signup-page');
