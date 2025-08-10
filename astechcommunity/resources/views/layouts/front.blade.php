@@ -161,13 +161,6 @@
                           <li><a href="{{ url('/') }}">Home 1</a></li>
                           <li><a href="{{ route('pages.home-2') }}">Home 2</a></li>
                           <li><a href="{{ route('pages.home-3') }}">Home 3</a></li>
-                          <li><a href="{{ route('pages.home-4') }}">Home 4</a></li>
-                          <li><a href="{{ route('pages.home-5') }}">Home 5</a></li>
-                          <li><a href="{{ route('pages.home-6') }}">Home 6</a></li>
-                          <li><a href="{{ route('pages.home-7') }}">Home 7</a></li>
-                          <li><a href="{{ route('pages.home-8') }}">Home 8</a></li>
-                          <li><a href="{{ route('pages.home-9') }}">Home 9</a></li>
-                          <li><a href="{{ route('pages.home-10') }}">Home 10</a></li>
                         </ul>
                       </li>
 
