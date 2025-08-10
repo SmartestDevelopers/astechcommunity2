@@ -610,10 +610,6 @@
                               </li>
 
                               <li>
-                                <a href="{{ route('pages.contact-1') }}">Contact 1</a>
-                              </li>
-
-                              <li>
                                 <a href="{{ route('pages.contact-2') }}">Contact 2</a>
                               </li>
 
