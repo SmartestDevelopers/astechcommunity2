@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'FrontController@index');
 Route::get('/courses', 'FrontController@courses')->name('courses');
+Route::get('/courses/category/{category}', 'FrontController@coursesByCategory')->name('courses.category');
+Route::get('/api/search-courses', 'FrontController@searchCourses')->name('api.search.courses');
 
 // Course Controller Routes - MOVED BEFORE wildcard route to avoid conflicts
 Route::prefix('courses')->name('courses.')->group(function () {
@@ -61,6 +63,41 @@ Route::get('/freelancers', 'FrontController@freelancers')->name('freelancers');
 Route::get('/mentors', 'FrontController@mentors')->name('mentors');
 Route::get('/clients', 'FrontController@clients')->name('clients');
 Route::get('/charity', 'FrontController@charity')->name('charity');
+
+// Community Join Routes
+Route::prefix('join-community')->name('community.')->group(function () {
+    // Freelancer routes
+    Route::get('/freelancer-form', 'CommunityController@freelancerForm')->name('freelancer.form');
+    Route::post('/freelancer', 'CommunityController@storeFreelancer')->name('freelancer.store');
+    Route::get('/freelancer-login', 'CommunityController@freelancerLogin')->name('freelancer.login');
+    Route::post('/freelancer-login', 'CommunityController@authenticateFreelancer')->name('freelancer.authenticate');
+    
+    // Client routes
+    Route::get('/client-form', 'CommunityController@clientForm')->name('client.form');
+    Route::post('/client', 'CommunityController@storeClient')->name('client.store');
+    Route::get('/client-login', 'CommunityController@clientLogin')->name('client.login');
+    Route::post('/client-login', 'CommunityController@authenticateClient')->name('client.authenticate');
+    
+    // Mentor routes
+    Route::get('/mentor-form', 'CommunityController@mentorForm')->name('mentor.form');
+    Route::post('/mentor', 'CommunityController@storeMentor')->name('mentor.store');
+    Route::get('/mentor-login', 'CommunityController@mentorLogin')->name('mentor.login');
+    Route::post('/mentor-login', 'CommunityController@authenticateMentor')->name('mentor.authenticate');
+});
+
+// Direct routes for compatibility with your existing URLs
+Route::get('/freelancer-form', 'CommunityController@freelancerForm')->name('freelancer.form');
+Route::post('/freelancer-form', 'CommunityController@storeFreelancer')->name('freelancer.store');
+Route::get('/freelancer-login', 'CommunityController@freelancerLogin')->name('freelancer.login');
+Route::post('/freelancer-login', 'CommunityController@authenticateFreelancer')->name('freelancer.authenticate');
+Route::get('/client-form', 'CommunityController@clientForm')->name('client.form');
+Route::post('/client-form', 'CommunityController@storeClient')->name('client.store');
+Route::get('/client-login', 'CommunityController@clientLogin')->name('client.login');
+Route::post('/client-login', 'CommunityController@authenticateClient')->name('client.authenticate');
+Route::get('/mentor-form', 'CommunityController@mentorForm')->name('mentor.form');
+Route::post('/mentor-form', 'CommunityController@storeMentor')->name('mentor.store');
+Route::get('/mentor-login', 'CommunityController@mentorLogin')->name('mentor.login');
+Route::post('/mentor-login', 'CommunityController@authenticateMentor')->name('mentor.authenticate');
 
 // Page Controller Routes
 Route::prefix('pages')->name('pages.')->group(function () {

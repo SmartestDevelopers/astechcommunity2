@@ -288,20 +288,20 @@
                                 <h4 class="text-17 fw-500 mb-20">Popular Courses</h4>
 
                                 <ul class="mega__list">
+                                  @if(isset($popularCourseCategories))
+                                    @foreach($popularCourseCategories->take(6) as $category)
+                                      <li><a data-barba href="{{ route('courses.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                  @else
+                                    <li><a data-barba href="{{ route('courses') }}">Web Development</a></li>
+                                    <li><a data-barba href="{{ route('courses') }}">Mobile Development</a></li>
+                                    <li><a data-barba href="{{ route('courses') }}">Digital Marketing</a></li>
+                                    <li><a data-barba href="{{ route('courses') }}">Graphic Design</a></li>
+                                    <li><a data-barba href="{{ route('courses') }}">MS Office</a></li>
+                                    <li><a data-barba href="{{ route('courses') }}">Accounting</a></li>
+                                  @endif
 
-                                  <li><a data-barba href="#">Web Developer</a></li>
-
-                                  <li><a data-barba href="#">Mobile Developer</a></li>
-
-                                  <li><a data-barba href="#">Digital Marketing</a></li>
-
-                                  <li><a data-barba href="#">Development</a></li>
-
-                                  <li><a data-barba href="#">Finance &amp; Accounting</a></li>
-
-                                  <li><a data-barba href="#">Design</a></li>
-
-                                  <li><a data-barba href="{{ route('courses.list-1') }}">View All Courses</a></li>
+                                  <li><a data-barba href="{{ route('courses') }}">View All Courses</a></li>
 
                                 </ul>
 
@@ -529,32 +529,23 @@
                                 <a href="#"><i class="icon-chevron-left text-13 mr-10"></i> Popular Courses</a>
                               </li>
 
-                              <li>
-                                <a href="#">Web Developer</a>
-                              </li>
+                              @if(isset($popularCourseCategories))
+                                @foreach($popularCourseCategories->take(6) as $category)
+                                  <li>
+                                    <a href="{{ route('courses.category', $category->slug) }}">{{ $category->name }}</a>
+                                  </li>
+                                @endforeach
+                              @else
+                                <li><a href="{{ route('courses') }}">Web Development</a></li>
+                                <li><a href="{{ route('courses') }}">Mobile Development</a></li>
+                                <li><a href="{{ route('courses') }}">Digital Marketing</a></li>
+                                <li><a href="{{ route('courses') }}">Graphic Design</a></li>
+                                <li><a href="{{ route('courses') }}">MS Office</a></li>
+                                <li><a href="{{ route('courses') }}">Accounting</a></li>
+                              @endif
 
                               <li>
-                                <a href="#">Mobile Developer</a>
-                              </li>
-
-                              <li>
-                                <a href="#">Digital Marketing</a>
-                              </li>
-
-                              <li>
-                                <a href="#">Development</a>
-                              </li>
-
-                              <li>
-                                <a href="#">Finance &amp; Accounting</a>
-                              </li>
-
-                              <li>
-                                <a href="#">Design</a>
-                              </li>
-
-                              <li>
-                                <a href="{{ route('courses.list-1') }}">View All Courses</a>
+                                <a href="{{ route('courses') }}">View All Courses</a>
                               </li>
 
                             </ul>
@@ -1120,6 +1111,7 @@
   <script src="{{asset('template/unpkg.com/leaflet%401.7.1/dist/leaflet.js')}}" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="{{asset('template/js/vendors.js')}}"></script>
   <script src="{{asset('template/js/main.js')}}"></script>
+  <script src="{{asset('js/course-search.js')}}"></script>
   
   <script>
     function toggleUserMenu() {

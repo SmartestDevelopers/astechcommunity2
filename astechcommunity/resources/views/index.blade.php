@@ -1,4 +1,4 @@
-@extends('layouts.front')
+ï»¿@extends('layouts.front')
 
 {{-- SEO Optimization --}}
 @section('title', 'AS-Tech Community - Learn Technology Skills Online | Programming, Web Development & Digital Marketing Courses')
@@ -119,10 +119,15 @@
                   @endif
                 </p>
 
-                <div data-anim-child="slide-up delay-5" class="mainSlider__form">
-                  <input type="text" placeholder="What do you want to learn today?">
+                <div data-anim-child="slide-up delay-5" class="mainSlider__form" style="position: relative;">
+                  <input type="text" id=\"course-search\" placeholder=\"What do you want to learn today?\" autocomplete=\"off\" data-search-url=\"{{ route('api.search.courses') }}\" data-courses-url=\"{{ route('courses') }}\">
+                  
+                  <!-- Search Results Dropdown -->
+                  <div id="search-results" class="search-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 1000; max-height: 400px; overflow-y: auto;">
+                    <!-- Results will be populated here -->
+                  </div>
 
-                  <button class="button -md -purple-1 text-white">
+                  <button class="button -md -purple-1 text-white" id="search-button">
                     <i class="icon icon-search mr-15"></i>
                     Search
                   </button>
@@ -167,6 +172,62 @@
         <button class="swiper-next button -white-20 text-white size-60 rounded-full d-flex justify-center items-center js-next">
           <i class="icon icon-arrow-right text-24"></i>
         </button>
+      </section>
+
+      <!-- Join as Freelancer/Client/Mentor Section -->
+      <section class="layout-pt-lg layout-pb-md">
+        <div class="container">
+          <!-- First Row: Freelancer and Client -->
+          <div class="row y-gap-30 justify-center">
+            <div class="col-lg-6 col-md-6">
+              <div class="joinCard -type-freelancer border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Freelancer</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a freelancer, showcase your skills globally, set your rates, and work on exciting, impactful projects today</p>
+                  <div class="joinCard__button">
+                    <a href="/freelancer-form" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="joinCard -type-client border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Client</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a client to get your projects done with ease. Experts will handle your work. The ongoing project in AS-Project Portal will be easy to detect progress.</p>
+                  <div class="joinCard__button">
+                    <a href="/client-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second Row: Mentor -->
+          <div class="row justify-center mt-40">
+            <div class="col-lg-8 col-md-10">
+              <div class="joinCard -type-mentor border-2 border-light-1 rounded-8 shadow-2 p-30 text-center transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as Mentor</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a mentor, share your expertise, guide rising talent, and make a lasting impact on the next generation</p>
+                  <div class="joinCard__button">
+                    <a href="/mentor-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="layout-pt-lg layout-pb-lg">
@@ -400,7 +461,7 @@
           <div class="row y-gap-30 items-center">
             <div class="col-lg-6 order-2 order-lg-1">
               <h2 class="text-45 lg:text-40 md:text-30 text-dark-1">Online learning solutions<br class="xl:d-none"> that meet your needs.</h2>
-              <p class="text-dark-1 mt-20">Use the list below to bring attention to your product’s key<br class="lg:d-none"> differentiator.</p>
+              <p class="text-dark-1 mt-20">Use the list below to bring attention to your productï¿½s key<br class="lg:d-none"> differentiator.</p>
 
               <div class="row y-gap-30 pt-60 lg:pt-40">
 
@@ -1117,7 +1178,7 @@
         <div data-anim-wrap class="container">
           <div class="row justify-center">
             <div class="col text-center">
-              <p class="text-lg text-dark-1">Trusted by the world’s best</p>
+              <p class="text-lg text-dark-1">Trusted by the worldï¿½s best</p>
             </div>
           </div>
 
@@ -1165,5 +1226,8 @@
 
 
 @endsection
+
+
+
 
 

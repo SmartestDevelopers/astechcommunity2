@@ -199,6 +199,40 @@ public function charity()
     }
 
     /**
+     * Show courses by category.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function coursesByCategory($category)
+    {
+        // Find category by slug or name
+        $categoryModel = Category::where('slug', $category)
+            ->orWhere('name', $category)
+            ->first();
+            
+        if (!$categoryModel) {
+            return redirect()->route('courses')->with('error', 'Category not found.');
+        }
+
+        $courses = Course::with(['instructor', 'category'])
+            ->where('category_id', $categoryModel->id)
+            ->where('is_active', true)
+            ->orderBy('total_students', 'desc')
+            ->orderBy('rating', 'desc')
+            ->paginate(12);
+
+        // Get all categories for filter dropdown
+        $categories = Category::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $levels = ['Beginner', 'Intermediate', 'Advanced'];
+
+        return view('courses', compact('courses', 'categories', 'levels', 'categoryModel'));
+    }
+
+    /**
      * Show the services page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -256,6 +290,50 @@ public function charity()
     public function faqs()
     {
         return view('faqs');
+    }
+
+    /**
+     * Search courses for autocomplete
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function searchCourses(Request $request)
+    {
+        $query = $request->get('q', '');
+        
+        if (strlen($query) < 2) {
+            return response()->json([]);
+        }
+        
+        $courses = Course::with(['instructor', 'category'])
+            ->where('is_active', true)
+            ->where(function($q) use ($query) {
+                $q->where('title', 'LIKE', '%' . $query . '%')
+                  ->orWhere('description', 'LIKE', '%' . $query . '%')
+                  ->orWhere('short_description', 'LIKE', '%' . $query . '%');
+            })
+            ->orderBy('total_students', 'desc')
+            ->orderBy('rating', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function($course) {
+                return [
+                    'id' => $course->id,
+                    'title' => $course->title,
+                    'slug' => $course->slug,
+                    'short_description' => $course->short_description,
+                    'image' => $course->image,
+                    'price' => $course->price,
+                    'discount_price' => $course->discount_price,
+                    'rating' => $course->rating,
+                    'total_students' => $course->total_students,
+                    'instructor' => $course->instructor ? $course->instructor->name : 'Unknown',
+                    'category' => $course->category ? $course->category->name : 'Uncategorized',
+                    'url' => route('courses.show', $course->slug)
+                ];
+            });
+            
+        return response()->json($courses);
     }
 
     /**
