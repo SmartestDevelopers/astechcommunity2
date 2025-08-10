@@ -25,88 +25,32 @@
     <section class="layout-pt-md layout-pb-lg">
         <div class="container">
             <div class="row y-gap-30">
+                @forelse($services as $service)
                 <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/1.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Online Courses</h4>
-                            <p class="featureCard__text">
-                                Expert-led courses in programming, web development, mobile development, and more.
-                            </p>
+                    <div class="coursesCard -type-1 -hover-shadow border-light rounded-8">
+                        <a href="{{ route('services.show', $service->slug) }}" class="coursesCard__image">
+                            <img class="w-1/1" src="{{ $service->image ? asset('storage/'.$service->image) : asset('template/img/coursesCards/1.png') }}" alt="{{ $service->title }}">
+                        </a>
+                        <div class="h-100 pt-15 pb-10 px-20">
+                            <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">{{ $service->title }}</div>
+                            <div class="text-14 text-dark-1 mt-5">{{ Str::limit($service->short_description, 120) }}</div>
+                            <div class="d-flex items-center justify-between mt-10">
+                                <div class="text-16 fw-600">${{ number_format($service->price ?? 0, 2) }}</div>
+                                <a href="{{ route('checkout.service', ['service' => $service->slug]) }}" class="button -sm -green-1 text-white">Buy</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/2.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Mentorship Program</h4>
-                            <p class="featureCard__text">
-                                Get paired with experienced professionals for personalized career guidance.
-                            </p>
-                        </div>
-                    </div>
+                @empty
+                <div class="col-12 text-center">
+                    <p>No services found.</p>
                 </div>
+                @endforelse
+            </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/3.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Career Services</h4>
-                            <p class="featureCard__text">
-                                Job placement assistance, resume reviews, and interview preparation.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/4.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Community Support</h4>
-                            <p class="featureCard__text">
-                                Join our active community of learners and professionals for networking and support.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/5.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Project-Based Learning</h4>
-                            <p class="featureCard__text">
-                                Hands-on projects and real-world applications to build your portfolio.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="featureCard -type-1">
-                        <div class="featureCard__icon">
-                            <img src="{{ asset('template/img/featureCards/6.svg') }}" alt="icon">
-                        </div>
-                        <div class="featureCard__content">
-                            <h4 class="featureCard__title">Certification</h4>
-                            <p class="featureCard__text">
-                                Earn industry-recognized certificates upon successful course completion.
-                            </p>
-                        </div>
-                    </div>
+            <div class="row justify-center pt-60 lg:pt-40">
+                <div class="col-auto">
+                    {{ $services->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

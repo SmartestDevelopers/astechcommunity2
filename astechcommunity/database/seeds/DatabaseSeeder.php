@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             LessonSeeder::class,
             CourseEnrollmentSeeder::class,
             CourseReviewSeeder::class,
+            ServiceSeeder::class,
+            FreelancerSeeder::class,
         ]);
     }
 }

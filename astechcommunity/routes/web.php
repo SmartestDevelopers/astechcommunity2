@@ -187,3 +187,32 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 Route::middleware('auth')->group(function () {
     require __DIR__.'/admin.php';
 });
+
+// Community simple dashboards for custom session-based auth
+Route::get('/freelancer-dashboard', function() {
+    return view('community.freelancer-dashboard');
+})->name('freelancer.dashboard');
+
+Route::get('/client-dashboard', function() {
+    return view('community.client-dashboard');
+})->name('client.dashboard');
+
+Route::get('/mentor-dashboard', function() {
+    return view('community.mentor-dashboard');
+})->name('mentor.dashboard');
+
+// Checkout routes for courses and services
+Route::prefix('checkout')->name('checkout.')->group(function () {
+    Route::get('/course/{course:slug}', 'CheckoutController@buyCourse')->name('course');
+    Route::get('/service/{service:slug}', 'CheckoutController@buyService')->name('service');
+});
+Route::post('/checkout/order', 'CheckoutController@placeOrder')->name('checkout.order');
+
+// Service detail
+Route::get('/services/{service:slug}', 'FrontController@showService')->name('services.show');
+
+// Freelancer detail
+Route::get('/freelancers/{freelancer}', 'FrontController@showFreelancer')->name('freelancers.show');
+
+// Hire request
+Route::post('/freelancers/hire', 'HireController@submit')->name('freelancers.hire');

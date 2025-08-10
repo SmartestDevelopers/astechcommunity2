@@ -39,65 +39,62 @@
 
                 <div class="tabs__content pt-60">
                     <div class="tabs__pane -tab-item-1 is-active">
+                        <form method="GET" class="row y-gap-20 mb-20">
+                            <div class="col-lg-6">
+                                <input type="text" name="search" class="form-control" value="{{ request('search') }}" placeholder="Search name, title, skills">
+                            </div>
+                            <div class="col-lg-3">
+                                <select name="location" class="form-control">
+                                    <option value="">All Locations</option>
+                                    @foreach($locations as $loc)
+                                        <option value="{{ $loc }}" @selected(request('location')==$loc)>{{ $loc }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="button -md -purple-1 text-white w-1/1">Filter</button>
+                            </div>
+                        </form>
+
                         <div class="row y-gap-30">
-                            @for($i = 1; $i <= 6; $i++)
+                            @forelse($freelancers as $freelancer)
                             <div class="col-lg-6">
                                 <div class="eventCard -type-1">
                                     <div class="eventCard__img">
-                                        <img src="{{ asset('template/img/team/' . $i . '.png') }}" alt="Freelancer {{ $i }}">
+                                        <img src="{{ $freelancer->profile_image ? asset('storage/'.$freelancer->profile_image) : asset('template/img/team/1.png') }}" alt="{{ $freelancer->name }}">
                                     </div>
                                     <div class="eventCard__bg bg-white">
                                         <div class="eventCard__content y-gap-10">
                                             <div class="eventCard__inner">
-                                                <h4 class="eventCard__title">
-                                                    @switch($i)
-                                                        @case(1)
-                                                            Sarah Johnson - Full Stack Developer
-                                                            @break
-                                                        @case(2)
-                                                            Mike Chen - Mobile App Developer
-                                                            @break
-                                                        @case(3)
-                                                            Emily Davis - UX/UI Designer
-                                                            @break
-                                                        @case(4)
-                                                            David Wilson - DevOps Engineer
-                                                            @break
-                                                        @case(5)
-                                                            Lisa Brown - Data Scientist
-                                                            @break
-                                                        @default
-                                                            James Miller - Cybersecurity Expert
-                                                    @endswitch
-                                                </h4>
-                                                <div class="eventCard__text">
-                                                    Experienced professional with {{ rand(3, 8) }}+ years in the tech industry. Available for freelance projects.
+                                                <h4 class="eventCard__title">{{ $freelancer->name }} - {{ $freelancer->title }}</h4>
+                                                <div class="eventCard__text">{{ Str::limit($freelancer->bio, 160) }}</div>
+                                                <div class="mt-10">
+                                                    @foreach(array_slice((array)$freelancer->skills,0,5) as $skill)
+                                                        <span class="badge bg-light text-dark mr-5">{{ $skill }}</span>
+                                                    @endforeach
                                                 </div>
                                             </div>
-                                            
                                             <div class="eventCard__info">
-                                                <div class="eventCard__date">
-                                                    <i class="icon-star mr-8"></i>
-                                                    {{ number_format(rand(40, 50) / 10, 1) }} Rating
-                                                </div>
-                                                <div class="eventCard__time">
-                                                    <i class="icon-dollar mr-8"></i>
-                                                    ${{ rand(25, 100) }}/hour
-                                                </div>
-                                                <div class="eventCard__location">
-                                                    <i class="icon-location mr-8"></i>
-                                                    Remote Available
-                                                </div>
+                                                <div class="eventCard__date"><i class="icon-star mr-8"></i>{{ number_format($freelancer->rating,1) }} Rating</div>
+                                                <div class="eventCard__time"><i class="icon-dollar mr-8"></i>${{ number_format($freelancer->hourly_rate,2) }}/hour</div>
+                                                <div class="eventCard__location"><i class="icon-location mr-8"></i>{{ $freelancer->location }}</div>
                                             </div>
-
-                                            <div class="eventCard__button">
-                                                <a href="#" class="button -sm -purple-1 text-white">Contact Freelancer</a>
+                                            <div class="eventCard__button d-flex x-gap-10">
+                                                <a href="{{ route('freelancers.show', $freelancer->id) }}" class="button -sm -outline-purple-1 text-purple-1">View Profile</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @endfor
+                            @empty
+                                <div class="col-12 text-center"><p>No freelancers found.</p></div>
+                            @endforelse
+                        </div>
+
+                        <div class="row justify-center pt-40">
+                            <div class="col-auto">
+                                {{ $freelancers->appends(request()->query())->links('vendor.pagination.custom') }}
+                            </div>
                         </div>
                     </div>
 

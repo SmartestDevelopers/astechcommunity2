@@ -92,10 +92,34 @@ class FrontController extends Controller
         ));
     }
 
-    public function freelancers()
-{
-    return view('freelancers');
-}
+    public function freelancers(Request $request)
+    {
+        $query = \App\Freelancer::query()->where('is_active', true);
+
+        if ($search = $request->get('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('title', 'like', "%{$search}%")
+                  ->orWhere('bio', 'like', "%{$search}%");
+            });
+        }
+
+        if ($location = $request->get('location')) {
+            $query->where('location', $location);
+        }
+
+        $freelancers = $query->orderByDesc('is_featured')
+            ->orderByDesc('rating')
+            ->paginate(12);
+
+        $locations = \App\Freelancer::query()
+            ->select('location')
+            ->whereNotNull('location')
+            ->distinct()
+            ->pluck('location');
+
+        return view('freelancers', compact('freelancers', 'locations'));
+    }
 
 public function mentors()
 {
@@ -198,6 +222,11 @@ public function charity()
         return view('course-single', compact('course', 'relatedCourses'));
     }
 
+    public function showFreelancer(\App\Freelancer $freelancer)
+    {
+        return view('freelancer-single', compact('freelancer'));
+    }
+
     /**
      * Show courses by category.
      *
@@ -237,9 +266,22 @@ public function charity()
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function services()
+    public function services(Request $request)
     {
-        return view('services');
+        $servicesQuery = \App\Service::active()->orderByDesc('is_featured')->orderBy('sort_order');
+        if ($search = $request->get('search')) {
+            $servicesQuery->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('short_description', 'like', "%{$search}%");
+            });
+        }
+        $services = $servicesQuery->paginate(12);
+        return view('services', compact('services'));
+    }
+
+    public function showService(\App\Service $service)
+    {
+        return view('service-single', compact('service'));
     }
 
     /**

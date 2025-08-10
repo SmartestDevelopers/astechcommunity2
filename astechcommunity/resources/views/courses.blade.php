@@ -209,7 +209,7 @@
                                                 <div>{{ $course->instructor->name }}</div>
                                             </div>
 
-                                            <div class="coursesCard-footer__price">
+                                            <div class="coursesCard-footer__price d-flex items-center x-gap-10">
                                                 @if($course->discount_price)
                                                     <div>${{ $course->price }}</div>
                                                     <div>${{ $course->discount_price }}</div>
@@ -217,6 +217,9 @@
                                                     <div>${{ $course->price }}</div>
                                                 @endif
                                             </div>
+                                        </div>
+                                        <div class="pb-15 px-20">
+                                            <a href="{{ route('checkout.course', ['course' => $course->slug]) }}" class="button -sm -purple-1 text-white">Buy Now</a>
                                         </div>
                                     </div>
                                 </a>
