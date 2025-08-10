@@ -50,7 +50,7 @@ Route::prefix('courses')->name('courses.')->group(function () {
 Route::get('/courses/{course:slug}', 'FrontController@showCourse')->name('courses.show');
 
 Route::get('/about', 'FrontController@about');
-Route::get('/services', 'FrontController@services');
+Route::get('/services', 'FrontController@services')->name('services');
 Route::get('/events', 'FrontController@events');
 Route::get('/blog', 'FrontController@blog');
 Route::get('/contact', 'FrontController@contact');

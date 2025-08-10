@@ -8,6 +8,8 @@ use App\Category;
 use App\Event;
 use App\Instructor;
 use App\Blog;
+use App\Service;
+use App\Freelancer;
 
 class FrontController extends Controller
 {
@@ -68,6 +70,22 @@ class FrontController extends Controller
             ->limit(5)
             ->get();
 
+        // Featured services for homepage
+        $homeServices = Service::active()->featured()
+            ->orderBy('sort_order')
+            ->limit(8)
+            ->get();
+        if ($homeServices->count() < 8) {
+            $homeServices = Service::active()->orderByDesc('created_at')->limit(8)->get();
+        }
+
+        // Featured freelancers for homepage
+        $homeFreelancers = Freelancer::where('is_active', true)
+            ->orderByDesc('is_featured')
+            ->orderByDesc('rating')
+            ->limit(8)
+            ->get();
+
         // Get recent blog posts
         $recentBlogs = Blog::published()
             ->with('category')
@@ -85,6 +103,8 @@ class FrontController extends Controller
             'topCategories', 
             'upcomingEvents', 
             'topInstructors',
+            'homeServices',
+            'homeFreelancers',
             'recentBlogs',
             'totalCourses',
             'totalStudents',

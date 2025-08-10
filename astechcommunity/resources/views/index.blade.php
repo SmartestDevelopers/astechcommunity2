@@ -120,7 +120,7 @@
                 </p>
 
                 <div data-anim-child="slide-up delay-5" class="mainSlider__form" style="position: relative;">
-                  <input type="text" id=\"course-search\" placeholder=\"What do you want to learn today?\" autocomplete=\"off\" data-search-url=\"{{ route('api.search.courses') }}\" data-courses-url=\"{{ route('courses') }}\">
+                  <input type="text" id="course-search" placeholder="What do you want to learn today?" autocomplete="off" data-search-url="{{ route('api.search.courses') }}" data-courses-url="{{ route('courses') }}">
                   
                   <!-- Search Results Dropdown -->
                   <div id="search-results" class="search-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 1000; max-height: 400px; overflow-y: auto;">
@@ -172,6 +172,86 @@
         <button class="swiper-next button -white-20 text-white size-60 rounded-full d-flex justify-center items-center js-next">
           <i class="icon icon-arrow-right text-24"></i>
         </button>
+      </section>
+      
+      <!-- Featured Services -->
+      <section class="layout-pt-lg layout-pb-lg bg-light-3">
+        <div class="container">
+          <div class="row y-gap-15 justify-between items-center">
+            <div class="col-lg-6">
+              <div class="sectionTitle ">
+                <h2 class="sectionTitle__title ">Professional Services</h2>
+                <p class="sectionTitle__text ">Hire us to build and grow your business</p>
+              </div>
+            </div>
+            <div class="col-lg-auto">
+              <a href="{{ route('services') }}" class="button -md -outline-purple-1 text-purple-1">View All Services</a>
+            </div>
+          </div>
+          <div class="row y-gap-30 pt-40">
+            @forelse($homeServices as $service)
+            <div class="col-lg-3 col-md-6">
+              <div class="coursesCard -type-1 -hover-shadow border-light rounded-8">
+                <a href="{{ route('services.show', $service->slug) }}" class="coursesCard__image">
+                  <img class="w-1/1" src="{{ $service->image ? asset('storage/'.$service->image) : asset('template/img/coursesCards/4.png') }}" alt="{{ $service->title }}">
+                </a>
+                <div class="h-100 pt-15 pb-10 px-20">
+                  <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">{{ $service->title }}</div>
+                  <div class="text-14 text-dark-1 mt-5">{{ Str::limit($service->short_description, 100) }}</div>
+                  <div class="d-flex items-center justify-between mt-10">
+                    <div class="text-16 fw-600">${{ number_format($service->price ?? 0, 2) }}</div>
+                    <a href="{{ route('checkout.service', ['service' => $service->slug]) }}" class="button -sm -green-1 text-white">Buy</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @empty
+            <div class="col-12 text-center"><p>No services yet.</p></div>
+            @endforelse
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Freelancers -->
+      <section class="layout-pt-lg layout-pb-lg">
+        <div class="container">
+          <div class="row y-gap-15 justify-between items-center">
+            <div class="col-lg-6">
+              <div class="sectionTitle ">
+                <h2 class="sectionTitle__title ">Top Freelancers</h2>
+                <p class="sectionTitle__text ">Hire vetted talent for your projects</p>
+              </div>
+            </div>
+            <div class="col-lg-auto">
+              <a href="{{ route('freelancers') }}" class="button -md -outline-purple-1 text-purple-1">View All Freelancers</a>
+            </div>
+          </div>
+          <div class="row y-gap-30 pt-40">
+            @forelse($homeFreelancers as $freelancer)
+            <div class="col-lg-3 col-md-6">
+              <div class="teamCard -type-2 bg-white">
+                <div class="teamCard__content">
+                  <div class="teamCard__img">
+                    <img src="{{ $freelancer->profile_image ? asset('storage/'.$freelancer->profile_image) : asset('template/img/team/1.png') }}" alt="{{ $freelancer->name }}">
+                  </div>
+                  <h4 class="teamCard__title text-17 lh-15 fw-500 mt-12">{{ $freelancer->name }}</h4>
+                  <div class="teamCard__subtitle text-14 lh-1 mt-5">{{ $freelancer->title }}</div>
+                  <div class="mt-10">
+                    @foreach(array_slice((array)$freelancer->skills,0,3) as $skill)
+                      <span class="badge bg-light text-dark mr-5">{{ $skill }}</span>
+                    @endforeach
+                  </div>
+                  <div class="teamCard__button mt-15">
+                    <a href="{{ route('freelancers.show', $freelancer->id) }}" class="button -icon -outline-purple-1 -rounded text-purple-1">View Profile</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @empty
+            <div class="col-12 text-center"><p>No freelancers yet.</p></div>
+            @endforelse
+          </div>
+        </div>
       </section>
 
       <!-- Join as Freelancer/Client/Mentor Section -->
