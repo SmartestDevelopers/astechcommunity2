@@ -103,6 +103,9 @@
 
         </div>
 
+
+         
+
         <div class="container">
           <div class="row justify-center text-center">
             <div class="col-xl-6 col-lg-8">
@@ -172,6 +175,63 @@
         <button class="swiper-next button -white-20 text-white size-60 rounded-full d-flex justify-center items-center js-next">
           <i class="icon icon-arrow-right text-24"></i>
         </button>
+      </section>
+
+
+        <!-- Join as Freelancer/Client/Mentor Section -->
+        <section class="layout-pt-lg layout-pb-md">
+        <div class="container">
+          <!-- First Row: Freelancer and Client -->
+          <div class="row y-gap-30 justify-center">
+            <div class="col-lg-6 col-md-6">
+              <div class="joinCard -type-freelancer border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Freelancer</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a freelancer, showcase your skills globally, set your rates, and work on exciting, impactful projects today</p>
+                  <div class="joinCard__button">
+                    <a href="/freelancer-form" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="joinCard -type-client border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Client</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a client to get your projects done with ease. Experts will handle your work. The ongoing project in AS-Project Portal will be easy to detect progress.</p>
+                  <div class="joinCard__button">
+                    <a href="/client-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second Row: Mentor -->
+          <div class="row justify-center mt-40">
+            <div class="col-lg-8 col-md-10">
+              <div class="joinCard -type-mentor border-2 border-light-1 rounded-8 shadow-2 p-30 text-center transition-all duration-500 hover:shadow-4">
+                <div class="joinCard__content">
+                  <div class="joinCard__header mb-20">
+                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as Mentor</h3>
+                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
+                  </div>
+                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a mentor, share your expertise, guide rising talent, and make a lasting impact on the next generation</p>
+                  <div class="joinCard__button">
+                    <a href="/mentor-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       
       <!-- Featured Services -->
@@ -254,61 +314,7 @@
         </div>
       </section>
 
-      <!-- Join as Freelancer/Client/Mentor Section -->
-      <section class="layout-pt-lg layout-pb-md">
-        <div class="container">
-          <!-- First Row: Freelancer and Client -->
-          <div class="row y-gap-30 justify-center">
-            <div class="col-lg-6 col-md-6">
-              <div class="joinCard -type-freelancer border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
-                <div class="joinCard__content">
-                  <div class="joinCard__header mb-20">
-                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Freelancer</h3>
-                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
-                  </div>
-                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a freelancer, showcase your skills globally, set your rates, and work on exciting, impactful projects today</p>
-                  <div class="joinCard__button">
-                    <a href="/freelancer-form" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <div class="joinCard -type-client border-2 border-light-1 rounded-8 shadow-2 p-30 text-center h-100 transition-all duration-500 hover:shadow-4">
-                <div class="joinCard__content">
-                  <div class="joinCard__header mb-20">
-                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as a Client</h3>
-                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
-                  </div>
-                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a client to get your projects done with ease. Experts will handle your work. The ongoing project in AS-Project Portal will be easy to detect progress.</p>
-                  <div class="joinCard__button">
-                    <a href="/client-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Second Row: Mentor -->
-          <div class="row justify-center mt-40">
-            <div class="col-lg-8 col-md-10">
-              <div class="joinCard -type-mentor border-2 border-light-1 rounded-8 shadow-2 p-30 text-center transition-all duration-500 hover:shadow-4">
-                <div class="joinCard__content">
-                  <div class="joinCard__header mb-20">
-                    <h3 class="text-30 md:text-24 fw-700 text-dark-1 mb-10">Join as Mentor</h3>
-                    <div class="joinCard__divider mx-auto" style="width: 40px; height: 4px; background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); border-radius: 2px;"></div>
-                  </div>
-                  <p class="text-15 text-dark-1 lh-18 mb-30">Join AS-Tech as a mentor, share your expertise, guide rising talent, and make a lasting impact on the next generation</p>
-                  <div class="joinCard__button">
-                    <a href="/mentor-login" class="button -md -rounded text-white" style="background: linear-gradient(90deg, #ff6b35 0%, #ff4757 100%); padding: 12px 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">Join Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+   
 
       <section class="layout-pt-lg layout-pb-lg">
         <div data-anim-wrap class="container">
@@ -685,31 +691,27 @@
 
           <div class="pt-60 lg:pt-40 js-section-slider" data-gap="30" data-pagination="js-events-slider-pagination" data-nav-prev="js-events-slider-prev" data-nav-next="js-events-slider-next" data-slider-cols="xl-3 lg-2">
             <div class="swiper-wrapper">
-
+              @forelse($upcomingEvents as $event)
               <div class="swiper-slide">
                 <div data-anim="slide-left delay-2" class="eventCard -type-1">
                   <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/1.png') }}" alt="image">
+                    <img src="{{ $event->image ? asset('storage/'.$event->image) : asset('template/img/home-2/events/1.png') }}" alt="{{ $event->title }}">
                   </div>
-
                   <div class="eventCard__bg bg-white">
                     <div class="eventCard__content y-gap-10">
                       <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
+                        <h4 class="eventCard__title text-17 fw-500">{{ $event->title }}</h4>
                         <div class="d-flex x-gap-15 pt-10">
                           <div class="d-flex items-center">
                             <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
+                            <div class="text-14">{{ optional($event->event_date)->format('M d, Y') }}</div>
                           </div>
                           <div class="d-flex items-center">
                             <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
+                            <div class="text-14">{{ $event->location }}</div>
                           </div>
                         </div>
                       </div>
-
                       <div class="eventCard__button">
                         <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
                       </div>
@@ -717,167 +719,11 @@
                   </div>
                 </div>
               </div>
-
+              @empty
               <div class="swiper-slide">
-                <div data-anim="slide-left delay-3" class="eventCard -type-1">
-                  <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/2.png') }}" alt="image">
-                  </div>
-
-                  <div class="eventCard__bg bg-white">
-                    <div class="eventCard__content y-gap-10">
-                      <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
-                        <div class="d-flex x-gap-15 pt-10">
-                          <div class="d-flex items-center">
-                            <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
-                          </div>
-                          <div class="d-flex items-center">
-                            <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="eventCard__button">
-                        <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div class="py-40 text-center">No upcoming events.</div>
               </div>
-
-              <div class="swiper-slide">
-                <div data-anim="slide-left delay-4" class="eventCard -type-1">
-                  <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/3.png') }}" alt="image">
-                  </div>
-
-                  <div class="eventCard__bg bg-white">
-                    <div class="eventCard__content y-gap-10">
-                      <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
-                        <div class="d-flex x-gap-15 pt-10">
-                          <div class="d-flex items-center">
-                            <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
-                          </div>
-                          <div class="d-flex items-center">
-                            <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="eventCard__button">
-                        <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div data-anim="slide-left delay-5" class="eventCard -type-1">
-                  <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/4.png') }}" alt="image">
-                  </div>
-
-                  <div class="eventCard__bg bg-white">
-                    <div class="eventCard__content y-gap-10">
-                      <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
-                        <div class="d-flex x-gap-15 pt-10">
-                          <div class="d-flex items-center">
-                            <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
-                          </div>
-                          <div class="d-flex items-center">
-                            <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="eventCard__button">
-                        <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div data-anim="slide-left delay-6" class="eventCard -type-1">
-                  <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/5.png') }}" alt="image">
-                  </div>
-
-                  <div class="eventCard__bg bg-white">
-                    <div class="eventCard__content y-gap-10">
-                      <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
-                        <div class="d-flex x-gap-15 pt-10">
-                          <div class="d-flex items-center">
-                            <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
-                          </div>
-                          <div class="d-flex items-center">
-                            <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="eventCard__button">
-                        <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div data-anim="slide-left delay-7" class="eventCard -type-1">
-                  <div class="eventCard__img">
-                    <img src="{{ asset('template/img/home-2/events/6.png') }}" alt="image">
-                  </div>
-
-                  <div class="eventCard__bg bg-white">
-                    <div class="eventCard__content y-gap-10">
-                      <div class="eventCard__inner">
-                        <h4 class="eventCard__title text-17 fw-500">
-                          Summer School 2022
-                        </h4>
-                        <div class="d-flex x-gap-15 pt-10">
-                          <div class="d-flex items-center">
-                            <div class="icon-calendar-2 text-16 mr-8"></div>
-                            <div class="text-14">6 April, 2022</div>
-                          </div>
-                          <div class="d-flex items-center">
-                            <div class="icon-location text-16 mr-8"></div>
-                            <div class="text-14">London, UK</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="eventCard__button">
-                        <a href="#" class="button -sm -rounded -purple-1 text-white px-25">Buy</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              @endforelse
             </div>
           </div>
 

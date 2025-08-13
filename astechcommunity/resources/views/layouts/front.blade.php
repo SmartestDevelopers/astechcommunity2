@@ -18,14 +18,14 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('og_title', config('app.name', 'AsTech Community'))">
     <meta property="og:description" content="@yield('og_description', 'Join AS-Tech Community to learn cutting-edge technology skills through expert-led courses.')">
-    <meta property="og:image" content="@yield('og_image', asset('template/img/general/logo.svg'))">
+    <meta property="og:image" content="@yield('og_image', asset('ASTECHLOGOWHITE2.png'))">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="@yield('twitter_title', config('app.name', 'AsTech Community'))">
     <meta property="twitter:description" content="@yield('twitter_description', 'Join AS-Tech Communityto learn cutting-edge technology skills through expert-led courses.')">
-    <meta property="twitter:image" content="@yield('twitter_image', asset('template/img/general/logo.svg'))">
+    <meta property="twitter:image" content="@yield('twitter_image', asset('ASTECHLOGOWHITE2.png'))">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
@@ -79,7 +79,7 @@
     
   <main class="main-content  ">
 
-    <header data-anim="fade" data-add-bg="bg-dark-1" class="header -type-5 js-header">
+    <header data-anim="fade" data-add-bg="bg-dark-1" class="header -type-5 js-header is-in-view bg-dark-1">
 
       <div class="d-flex items-center bg-purple-1 py-10">
         <div class="container">
@@ -88,11 +88,11 @@
               <div class="d-flex x-gap-40 y-gap-10 items-center">
                 <div class="d-flex items-center text-white md:d-none">
                   <div class="icon-email mr-10"></div>
-                  <div class="text13 lh-1">(00) 242 844 39 88</div>
+                  <div class="text13 lh-1"> +92 320 4192824</div>
                 </div>
                 <div class="d-flex items-center text-white">
                   <div class="icon-email mr-10"></div>
-                  <div class="text13 lh-1">hello@educrat.com</div>
+                  <div class="text13 lh-1">hello@astechcommunity.com</div>
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@
 
               <div class="header__logo ">
                 <a href="{{ url('/') }}">
-                  <img style="width:150px;" src="{{asset('Techbold.png')}}" alt="logo">
+                  <img style="width:90px;" src="{{asset('ASTECHLOGOWHITE2.png')}}" alt="logo">
                 </a>
               </div>
 
@@ -148,7 +148,12 @@
 
                   <div class="menu js-navList">
                     <ul class="menu__nav text-white -is-active">
-                      <li class="menu-item-has-children">
+
+                    <li>
+                        <a data-barba href="{{ route('pages.home-2') }}">Home</a>
+                      </li>
+                      
+                      <!-- <li class="menu-item-has-children">
                         <a data-barba href="#">
                           Home <i class="icon-chevron-right text-13 ml-10"></i>
                         </a>
@@ -169,11 +174,22 @@
                           <li><a href="{{ route('pages.home-9') }}">Home 9</a></li>
                           <li><a href="{{ route('pages.home-10') }}">Home 10</a></li>
                         </ul>
+                      </li> -->
+
+                      <li>
+                        <a data-barba href="{{ route('courses.list-1') }}">Courses</a>
                       </li>
 
-                      <li class="menu-item-has-children -has-mega-menu">
-                        <a data-barba href="#">Courses <i class="icon-chevron-right text-13 ml-10"></i></a>
+                      <li>
+                        <a data-barba href="{{ route('pages.event-list-1') }}">Events</a>
+                      </li>
 
+                      <li>
+                        <a data-barba href="{{ route('pages.blog-list-1') }}">Blogs</a>
+                      </li>
+                    
+                      <!-- <li class="menu-item-has-children -has-mega-menu">
+                        <a data-barba href="#">Courses <i class="icon-chevron-right text-13 ml-10"></i></a>
 
                         <div class="mega xl:d-none">
                           <div class="mega__menu">
@@ -318,7 +334,6 @@
                             </div>
                           </div>
                         </div>
-
 
                         <ul class="subnav d-none xl:d-block">
                           <li class="menu__backButton js-nav-list-back">
@@ -551,9 +566,9 @@
                             </ul>
                           </li>
                         </ul>
-                      </li>
+                      </li> -->
 
-                      <li class="menu-item-has-children">
+                      <!-- <li class="menu-item-has-children">
                         <a data-barba href="#">Events <i class="icon-chevron-right text-13 ml-10"></i></a>
                         <ul class="subnav">
                           <li class="menu__backButton js-nav-list-back">
@@ -565,9 +580,9 @@
                           <li><a href="{{ route('pages.event-single') }}">Event Single</a></li>
 
                         </ul>
-                      </li>
+                      </li> -->
 
-                      <li class="menu-item-has-children">
+                      <!-- <li class="menu-item-has-children">
                         <a data-barba href="#">Blog <i class="icon-chevron-right text-13 ml-10"></i></a>
                         <ul class="subnav">
                           <li class="menu__backButton js-nav-list-back">
@@ -583,7 +598,7 @@
                           <li><a href="{{ route('pages.blog-tag') }}">Blog Tag</a></li>
                           <li><a href="{{ route('pages.blog-author') }}">Blog Author</a></li>
                         </ul>
-                      </li>
+                      </li> -->
 
                       <li class="menu-item-has-children">
                         <a data-barba href="#">
@@ -698,12 +713,12 @@
                   <div class="mobile-footer px-20 py-20 border-top-light js-mobile-footer">
                     <div class="mobile-footer__number">
                       <div class="text-17 fw-500 text-dark-1">Call us</div>
-                      <div class="text-17 fw-500 text-purple-1">800 388 80 90</div>
+                      <div class="text-17 fw-500 text-purple-1"> +92 320 4192824</div>
                     </div>
 
                     <div class="lh-2 mt-10">
                       <div>329 Queensberry Street,<br> North Melbourne VIC 3051, Australia.</div>
-                      <div>hi@educrat.com</div>
+                      <div>hi@astechcommunity.com</div>
                     </div>
 
                     <div class="mobile-socials mt-10">
@@ -915,7 +930,7 @@
               <div class="text-17 fw-500 text-white uppercase mb-25">
                 GET IN TOUCH
               </div>
-              <form action="https://creativelayers.net/themes/educrat-html/post" class="form-single-field -base mt-15">
+              <form action="#" class="form-single-field -base mt-15">
                 <input class="py-20 px-30 bg-dark-6 rounded-200 text-white" type="text" placeholder="Your Email">
                 <button class="button -white rounded-full" type="submit">
                   <i class="icon-arrow-right text-24 text-dark-1"></i>
@@ -925,17 +940,17 @@
 
             <div class="col-xl-4 col-lg-5 col-md-6">
               <div class="footer-header__logo">
-                <img src="{{ asset('template/img/footer/footer-logo.svg') }}" alt="logo">
+                <img style="width:90px;" src="{{ asset('ASTECHLOGOWHITE2.png') }}" alt="logo">
               </div>
 
               <div class="d-flex justify-between mt-30">
                 <div class="">
                   <div class="text-white opac-70">Toll Free Customer Care</div>
-                  <div class="text-18 lh-1 fw-500 text-white mt-5">+(1) 123 456 7890</div>
+                  <div class="text-18 lh-1 fw-500 text-white mt-5">+92 320 4192824</div>
                 </div>
                 <div class="">
                   <div class="text-white opac-70">Need live support?</div>
-                  <div class="text-18 lh-1 fw-500 text-white mt-5">hi@educrat.comv</div>
+                  <div class="text-18 lh-1 fw-500 text-white mt-5">hi@astechcommunity.comv</div>
                 </div>
               </div>
             </div>
@@ -1025,7 +1040,7 @@
             <div class="row justify-between items-center y-gap-20">
               <div class="col-auto">
                 <div class="d-flex items-center h-100 text-white">
-                  � 2022 Educrat. All Right Reserved.
+                  � 2022 astechcommunity. All Right Reserved.
                 </div>
               </div>
 

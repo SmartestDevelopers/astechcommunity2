@@ -12,6 +12,9 @@ use App\Mentor;
 use App\Client;
 use App\CharityProgram;
 use App\SeoPage;
+use App\Course;
+use App\Category;
+use App\Instructor;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -78,6 +81,111 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('stats'));
     }
 
+    // ========== COURSES CRUD ==========
+    public function coursesIndex()
+    {
+        $courses = Course::with(['instructor', 'category'])->latest()->paginate(10);
+        return view('admin.courses.index', compact('courses'));
+    }
+
+    public function coursesCreate()
+    {
+        $categories = Category::orderBy('name')->get();
+        $instructors = Instructor::orderBy('name')->get();
+        return view('admin.courses.create', compact('categories', 'instructors'));
+    }
+
+    public function coursesStore(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'short_description' => 'nullable|string',
+            'instructor_id' => 'required|exists:instructors,id',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'discount_price' => 'nullable|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:4096',
+            'video_url' => 'nullable|string',
+            'level' => 'required|string|in:Beginner,Intermediate,Advanced',
+            'duration_hours' => 'nullable|integer|min:0',
+            'duration_minutes' => 'nullable|integer|min:0|max:59',
+            'total_lessons' => 'nullable|integer|min:0',
+            'is_featured' => 'boolean',
+            'is_active' => 'boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'what_you_learn' => 'nullable|array',
+            'requirements' => 'nullable|array',
+        ]);
+
+        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_active'] = $request->has('is_active');
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('uploads/courses', 'public');
+        }
+
+        Course::create($validated);
+
+        return redirect()->route('admin.courses.index')->with('success', 'Course created successfully!');
+    }
+
+    public function coursesShow(Course $course)
+    {
+        $course->load(['instructor', 'category']);
+        return view('admin.courses.show', compact('course'));
+    }
+
+    public function coursesEdit(Course $course)
+    {
+        $categories = Category::orderBy('name')->get();
+        $instructors = Instructor::orderBy('name')->get();
+        return view('admin.courses.edit', compact('course', 'categories', 'instructors'));
+    }
+
+    public function coursesUpdate(Request $request, Course $course)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'short_description' => 'nullable|string',
+            'instructor_id' => 'required|exists:instructors,id',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'discount_price' => 'nullable|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:4096',
+            'video_url' => 'nullable|string',
+            'level' => 'required|string|in:Beginner,Intermediate,Advanced',
+            'duration_hours' => 'nullable|integer|min:0',
+            'duration_minutes' => 'nullable|integer|min:0|max:59',
+            'total_lessons' => 'nullable|integer|min:0',
+            'is_featured' => 'boolean',
+            'is_active' => 'boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'what_you_learn' => 'nullable|array',
+            'requirements' => 'nullable|array',
+        ]);
+
+        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_active'] = $request->has('is_active');
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('uploads/courses', 'public');
+        }
+
+        $course->update($validated);
+
+        return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully!');
+    }
+
+    public function coursesDestroy(Course $course)
+    {
+        $course->delete();
+        return redirect()->route('admin.courses.index')->with('success', 'Course deleted successfully!');
+    }
+
     // ========== SERVICES CRUD ==========
     public function servicesIndex()
     {
@@ -92,20 +200,31 @@ class AdminController extends Controller
 
     public function servicesStore(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
-            'duration' => 'required|string|max:100',
+            'price' => 'nullable|numeric|min:0',
             'is_active' => 'boolean',
-            'featured_image' => 'nullable|string',
-            'tags' => 'nullable|string',
+            'is_featured' => 'boolean',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
         ]);
 
-        $validated['is_active'] = $request->has('is_active');
+        $serviceData = [
+            'title' => $data['title'],
+            'short_description' => Str::limit(strip_tags($data['description']), 160),
+            'description' => $data['description'],
+            'price' => $data['price'] ?? null,
+            'price_type' => 'fixed',
+            'is_active' => $request->has('is_active'),
+            'is_featured' => $request->has('is_featured'),
+            'sort_order' => 0,
+        ];
 
-        Service::create($validated);
+        if ($request->hasFile('featured_image')) {
+            $serviceData['image'] = $request->file('featured_image')->store('uploads/services', 'public');
+        }
+
+        Service::create($serviceData);
 
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully!');
     }
@@ -122,20 +241,29 @@ class AdminController extends Controller
 
     public function servicesUpdate(Request $request, Service $service)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
-            'duration' => 'required|string|max:100',
+            'price' => 'nullable|numeric|min:0',
             'is_active' => 'boolean',
-            'featured_image' => 'nullable|string',
-            'tags' => 'nullable|string',
+            'is_featured' => 'boolean',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
         ]);
 
-        $validated['is_active'] = $request->has('is_active');
+        $serviceData = [
+            'title' => $data['title'],
+            'short_description' => Str::limit(strip_tags($data['description']), 160),
+            'description' => $data['description'],
+            'price' => $data['price'] ?? null,
+            'is_active' => $request->has('is_active'),
+            'is_featured' => $request->has('is_featured'),
+        ];
 
-        $service->update($validated);
+        if ($request->hasFile('featured_image')) {
+            $serviceData['image'] = $request->file('featured_image')->store('uploads/services', 'public');
+        }
+
+        $service->update($serviceData);
 
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully!');
     }
@@ -150,7 +278,11 @@ class AdminController extends Controller
     public function blogIndex()
     {
         $posts = BlogPost::latest()->paginate(10);
-        return view('admin.blog.index', compact('posts'));
+        $totalPosts = BlogPost::count();
+        $publishedPostsCount = BlogPost::where('is_published', true)->count();
+        $draftPostsCount = BlogPost::where('is_published', false)->count();
+        $todayPostsCount = BlogPost::whereDate('created_at', now()->toDateString())->count();
+        return view('admin.blog.index', compact('posts', 'totalPosts', 'publishedPostsCount', 'draftPostsCount', 'todayPostsCount'));
     }
 
     public function blogCreate()
@@ -167,13 +299,17 @@ class AdminController extends Controller
             'author' => 'required|string|max:100',
             'category' => 'required|string|max:100',
             'is_published' => 'boolean',
-            'featured_image' => 'nullable|string',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'tags' => 'nullable|string',
             'published_at' => 'nullable|date',
         ]);
 
         $validated['is_published'] = $request->has('is_published');
         $validated['slug'] = \Str::slug($validated['title']);
+
+        if ($request->hasFile('featured_image')) {
+            $validated['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
+        }
 
         BlogPost::create($validated);
 
@@ -199,13 +335,17 @@ class AdminController extends Controller
             'author' => 'required|string|max:100',
             'category' => 'required|string|max:100',
             'is_published' => 'boolean',
-            'featured_image' => 'nullable|string',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'tags' => 'nullable|string',
             'published_at' => 'nullable|date',
         ]);
 
         $validated['is_published'] = $request->has('is_published');
         $validated['slug'] = \Str::slug($validated['title']);
+
+        if ($request->hasFile('featured_image')) {
+            $validated['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
+        }
 
         $post->update($validated);
 
@@ -294,22 +434,32 @@ class AdminController extends Controller
 
     public function membershipStore(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'duration_type' => 'required|string|max:20',
             'duration_value' => 'required|integer|min:1',
-            'features' => 'nullable|json',
+            'features' => 'nullable',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'max_members' => 'nullable|integer|min:1',
         ]);
 
-        $validated['is_active'] = $request->has('is_active');
-        $validated['is_featured'] = $request->has('is_featured');
+        $planData = [
+            'name' => $data['name'],
+            'slug' => Str::slug($data['name']),
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'billing_cycle' => $data['duration_type'],
+            'discount_percentage' => 0,
+            'features' => is_string($data['features'] ?? null) ? json_decode($data['features'], true) : ($data['features'] ?? []),
+            'is_active' => $request->has('is_active'),
+            'is_popular' => $request->has('is_featured'),
+            'sort_order' => 0,
+        ];
 
-        MembershipPlan::create($validated);
+        MembershipPlan::create($planData);
 
         return redirect()->route('admin.membership.index')->with('success', 'Membership plan created successfully!');
     }
@@ -326,22 +476,30 @@ class AdminController extends Controller
 
     public function membershipUpdate(Request $request, MembershipPlan $plan)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'duration_type' => 'required|string|max:20',
             'duration_value' => 'required|integer|min:1',
-            'features' => 'nullable|json',
+            'features' => 'nullable',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'max_members' => 'nullable|integer|min:1',
         ]);
 
-        $validated['is_active'] = $request->has('is_active');
-        $validated['is_featured'] = $request->has('is_featured');
+        $planData = [
+            'name' => $data['name'],
+            'slug' => $plan->slug ?: Str::slug($data['name']),
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'billing_cycle' => $data['duration_type'],
+            'features' => is_string($data['features'] ?? null) ? json_decode($data['features'], true) : ($data['features'] ?? []),
+            'is_active' => $request->has('is_active'),
+            'is_popular' => $request->has('is_featured'),
+        ];
 
-        $plan->update($validated);
+        $plan->update($planData);
 
         return redirect()->route('admin.membership.index')->with('success', 'Membership plan updated successfully!');
     }
@@ -370,19 +528,27 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:freelancers,email',
             'phone' => 'nullable|string|max:20',
-            'skills' => 'required|string',
+            'skills' => 'required',
             'experience_level' => 'required|string|max:20',
             'hourly_rate' => 'required|numeric|min:0',
             'availability' => 'required|string|max:20',
             'portfolio_url' => 'nullable|url',
             'bio' => 'nullable|string',
-            'profile_image' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_verified' => 'boolean',
             'is_available' => 'boolean',
         ]);
 
         $validated['is_verified'] = $request->has('is_verified');
         $validated['is_available'] = $request->has('is_available');
+
+        if (is_string($validated['skills'] ?? null)) {
+            $validated['skills'] = array_map('trim', explode(',', $validated['skills']));
+        }
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request->file('profile_image')->store('uploads/freelancers', 'public');
+        }
 
         Freelancer::create($validated);
 
@@ -405,19 +571,27 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:freelancers,email,' . $freelancer->id,
             'phone' => 'nullable|string|max:20',
-            'skills' => 'required|string',
+            'skills' => 'required',
             'experience_level' => 'required|string|max:20',
             'hourly_rate' => 'required|numeric|min:0',
             'availability' => 'required|string|max:20',
             'portfolio_url' => 'nullable|url',
             'bio' => 'nullable|string',
-            'profile_image' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_verified' => 'boolean',
             'is_available' => 'boolean',
         ]);
 
         $validated['is_verified'] = $request->has('is_verified');
         $validated['is_available'] = $request->has('is_available');
+
+        if (is_string($validated['skills'] ?? null)) {
+            $validated['skills'] = array_map('trim', explode(',', $validated['skills']));
+        }
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request->file('profile_image')->store('uploads/freelancers', 'public');
+        }
 
         $freelancer->update($validated);
 
@@ -453,13 +627,17 @@ class AdminController extends Controller
             'availability_hours' => 'nullable|string',
             'bio' => 'nullable|string',
             'linkedin_profile' => 'nullable|url',
-            'profile_image' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_accepting_sessions' => 'boolean',
             'is_verified' => 'boolean',
         ]);
 
         $validated['is_accepting_sessions'] = $request->has('is_accepting_sessions');
         $validated['is_verified'] = $request->has('is_verified');
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request->file('profile_image')->store('uploads/mentors', 'public');
+        }
 
         Mentor::create($validated);
 
@@ -487,13 +665,17 @@ class AdminController extends Controller
             'availability_hours' => 'nullable|string',
             'bio' => 'nullable|string',
             'linkedin_profile' => 'nullable|url',
-            'profile_image' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_accepting_sessions' => 'boolean',
             'is_verified' => 'boolean',
         ]);
 
         $validated['is_accepting_sessions'] = $request->has('is_accepting_sessions');
         $validated['is_verified'] = $request->has('is_verified');
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request->file('profile_image')->store('uploads/mentors', 'public');
+        }
 
         $mentor->update($validated);
 
@@ -520,24 +702,44 @@ class AdminController extends Controller
 
     public function clientsStore(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'company_name' => 'required|string|max:255',
-            'contact_person' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email',
+            'contact_person' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:clients,contact_email',
             'phone' => 'nullable|string|max:20',
             'industry' => 'required|string|max:100',
             'company_size' => 'nullable|string|max:50',
             'project_budget' => 'nullable|numeric|min:0',
             'requirements' => 'nullable|string',
-            'company_logo' => 'nullable|string',
+            'company_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'website_url' => 'nullable|url',
             'partnership_type' => 'nullable|string|max:100',
             'is_active_client' => 'boolean',
         ]);
 
-        $validated['is_active_client'] = $request->has('is_active_client');
+        $clientData = [
+            'company_name' => $data['company_name'],
+            'slug' => Str::slug($data['company_name']),
+            'description' => $data['requirements'] ?? null,
+            'industry' => $data['industry'],
+            'website_url' => $data['website_url'] ?? null,
+            'contact_email' => $data['email'],
+            'contact_phone' => $data['phone'] ?? null,
+            'contact_person_name' => $data['contact_person'] ?? null,
+            'company_size' => $data['company_size'] ?? '',
+            'project_budget_min' => $data['project_budget'] ?? null,
+            'project_budget_max' => $data['project_budget'] ?? null,
+            'partnership_type' => $data['partnership_type'] ?? 'prospect',
+            'partnership_status' => 'active',
+            'is_featured' => false,
+            'is_active' => $request->has('is_active_client'),
+        ];
 
-        Client::create($validated);
+        if ($request->hasFile('company_logo')) {
+            $clientData['logo'] = $request->file('company_logo')->store('uploads/clients', 'public');
+        }
+
+        Client::create($clientData);
 
         return redirect()->route('admin.clients.index')->with('success', 'Client created successfully!');
     }
@@ -554,24 +756,42 @@ class AdminController extends Controller
 
     public function clientsUpdate(Request $request, Client $client)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'company_name' => 'required|string|max:255',
-            'contact_person' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email,' . $client->id,
+            'contact_person' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:clients,contact_email,' . $client->id,
             'phone' => 'nullable|string|max:20',
             'industry' => 'required|string|max:100',
             'company_size' => 'nullable|string|max:50',
             'project_budget' => 'nullable|numeric|min:0',
             'requirements' => 'nullable|string',
-            'company_logo' => 'nullable|string',
+            'company_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'website_url' => 'nullable|url',
             'partnership_type' => 'nullable|string|max:100',
             'is_active_client' => 'boolean',
         ]);
 
-        $validated['is_active_client'] = $request->has('is_active_client');
+        $clientData = [
+            'company_name' => $data['company_name'],
+            'slug' => $client->slug ?: Str::slug($data['company_name']),
+            'description' => $data['requirements'] ?? null,
+            'industry' => $data['industry'],
+            'website_url' => $data['website_url'] ?? null,
+            'contact_email' => $data['email'],
+            'contact_phone' => $data['phone'] ?? null,
+            'contact_person_name' => $data['contact_person'] ?? null,
+            'company_size' => $data['company_size'] ?? '',
+            'project_budget_min' => $data['project_budget'] ?? null,
+            'project_budget_max' => $data['project_budget'] ?? null,
+            'partnership_type' => $data['partnership_type'] ?? $client->partnership_type,
+            'is_active' => $request->has('is_active_client'),
+        ];
 
-        $client->update($validated);
+        if ($request->hasFile('company_logo')) {
+            $clientData['logo'] = $request->file('company_logo')->store('uploads/clients', 'public');
+        }
+
+        $client->update($clientData);
 
         return redirect()->route('admin.clients.index')->with('success', 'Client updated successfully!');
     }
@@ -604,7 +824,7 @@ class AdminController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after:start_date',
             'beneficiary' => 'required|string|max:255',
-            'program_image' => 'nullable|string',
+            'program_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
         ]);
@@ -612,6 +832,10 @@ class AdminController extends Controller
         $validated['is_active'] = $request->has('is_active');
         $validated['is_featured'] = $request->has('is_featured');
         $validated['current_amount'] = $validated['current_amount'] ?? 0;
+
+        if ($request->hasFile('program_image')) {
+            $validated['program_image'] = $request->file('program_image')->store('uploads/charity', 'public');
+        }
 
         CharityProgram::create($validated);
 
@@ -638,13 +862,17 @@ class AdminController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after:start_date',
             'beneficiary' => 'required|string|max:255',
-            'program_image' => 'nullable|string',
+            'program_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
         ]);
 
         $validated['is_active'] = $request->has('is_active');
         $validated['is_featured'] = $request->has('is_featured');
+
+        if ($request->hasFile('program_image')) {
+            $validated['program_image'] = $request->file('program_image')->store('uploads/charity', 'public');
+        }
 
         $program->update($validated);
 
@@ -679,10 +907,14 @@ class AdminController extends Controller
             'meta_keywords' => 'nullable|string',
             'og_title' => 'nullable|string|max:255',
             'og_description' => 'nullable|string|max:300',
-            'og_image' => 'nullable|string',
+            'og_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'canonical_url' => 'nullable|url',
             'robots' => 'nullable|string|max:100',
         ]);
+
+        if ($request->hasFile('og_image')) {
+            $validated['og_image'] = $request->file('og_image')->store('uploads/seo', 'public');
+        }
 
         SeoPage::create($validated);
 
@@ -709,10 +941,14 @@ class AdminController extends Controller
             'meta_keywords' => 'nullable|string',
             'og_title' => 'nullable|string|max:255',
             'og_description' => 'nullable|string|max:300',
-            'og_image' => 'nullable|string',
+            'og_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'canonical_url' => 'nullable|url',
             'robots' => 'nullable|string|max:100',
         ]);
+
+        if ($request->hasFile('og_image')) {
+            $validated['og_image'] = $request->file('og_image')->store('uploads/seo', 'public');
+        }
 
         $seoPage->update($validated);
 

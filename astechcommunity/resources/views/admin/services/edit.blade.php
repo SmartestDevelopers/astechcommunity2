@@ -123,9 +123,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Featured Image</label>
-                                <input type="text" name="featured_image" class="form-control -md @error('featured_image') is-invalid @enderror" 
-                                       placeholder="Image URL (https://...)" value="{{ old('featured_image', $service->featured_image) }}">
-                                <small class="text-13 text-dark-1">Enter the full URL to the service image</small>
+                                 <input type="file" name="featured_image" class="form-control -md @error('featured_image') is-invalid @enderror" accept="image/*">
+                                 <small class="text-13 text-dark-1">Upload a new image to replace current one</small>
                                 @error('featured_image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

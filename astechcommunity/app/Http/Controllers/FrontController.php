@@ -7,7 +7,7 @@ use App\Course;
 use App\Category;
 use App\Event;
 use App\Instructor;
-use App\Blog;
+use App\BlogPost;
 use App\Service;
 use App\Freelancer;
 
@@ -86,8 +86,8 @@ class FrontController extends Controller
             ->limit(8)
             ->get();
 
-        // Get recent blog posts
-        $recentBlogs = Blog::published()
+        // Get recent blog posts from admin-managed posts
+        $recentBlogs = BlogPost::published()
             ->with('category')
             ->orderBy('published_at', 'desc')
             ->limit(3)
@@ -141,20 +141,27 @@ class FrontController extends Controller
         return view('freelancers', compact('freelancers', 'locations'));
     }
 
-public function mentors()
-{
-    return view('mentors');
-}
+ public function mentors(Request $request)
+ {
+     $mentors = \App\Mentor::where('is_verified', true)
+         ->orderByDesc('experience_years')
+         ->paginate(12);
+     return view('mentors', compact('mentors'));
+ }
 
 public function clients()
 {
     return view('clients');
 }
 
-public function charity()
-{
-    return view('charity');
-}
+ public function charity()
+ {
+     $programs = \App\CharityProgram::where('is_active', true)
+         ->orderByDesc('is_featured')
+         ->orderByDesc('start_date')
+         ->paginate(12);
+     return view('charity', compact('programs'));
+ }
 
     /**
      * Show the about page.
@@ -321,7 +328,10 @@ public function charity()
      */
     public function blog()
     {
-        return view('blog');
+        $posts = \App\BlogPost::published()
+            ->orderByDesc('published_at')
+            ->paginate(9);
+        return view('blog', compact('posts'));
     }
 
     /**

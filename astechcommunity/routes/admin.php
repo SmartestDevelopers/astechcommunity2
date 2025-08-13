@@ -16,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+// Courses CRUD Routes
+Route::prefix('admin/courses')->name('admin.courses.')->group(function () {
+    Route::get('/', [AdminController::class, 'coursesIndex'])->name('index');
+    Route::get('/create', [AdminController::class, 'coursesCreate'])->name('create');
+    Route::post('/', [AdminController::class, 'coursesStore'])->name('store');
+    Route::get('/{course}', [AdminController::class, 'coursesShow'])->name('show');
+    Route::get('/{course}/edit', [AdminController::class, 'coursesEdit'])->name('edit');
+    Route::put('/{course}', [AdminController::class, 'coursesUpdate'])->name('update');
+    Route::delete('/{course}', [AdminController::class, 'coursesDestroy'])->name('destroy');
+});
+
 // Services CRUD Routes
 Route::prefix('admin/services')->name('admin.services.')->group(function () {
     Route::get('/', [AdminController::class, 'servicesIndex'])->name('index');

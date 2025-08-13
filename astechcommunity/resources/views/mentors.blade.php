@@ -25,71 +25,21 @@
     <section class="layout-pt-md layout-pb-lg">
         <div class="container">
             <div class="row y-gap-30">
-                @for($i = 1; $i <= 8; $i++)
+                @forelse($mentors as $mentor)
                 <div class="col-lg-3 col-md-6">
                     <div class="teamCard -type-1 -teamCard-hover">
                         <div class="teamCard__image">
-                            <img src="{{ asset('template/img/team/' . $i . '.png') }}" alt="Mentor {{ $i }}">
+                            <img src="{{ $mentor->profile_image ? asset('storage/'.$mentor->profile_image) : asset('template/img/team/1.png') }}" alt="{{ $mentor->name }}">
                         </div>
                         <div class="teamCard__content">
-                            <h4 class="teamCard__title">
-                                @switch($i)
-                                    @case(1)
-                                        Dr. Sarah Johnson
-                                        @break
-                                    @case(2)
-                                        Michael Chen
-                                        @break
-                                    @case(3)
-                                        Emily Rodriguez
-                                        @break
-                                    @case(4)
-                                        David Kim
-                                        @break
-                                    @case(5)
-                                        Lisa Thompson
-                                        @break
-                                    @case(6)
-                                        Robert Davis
-                                        @break
-                                    @case(7)
-                                        Jennifer Wilson
-                                        @break
-                                    @default
-                                        Mark Anderson
-                                @endswitch
-                            </h4>
-                            <p class="teamCard__text">
-                                @switch($i)
-                                    @case(1)
-                                        Senior Full Stack Developer at Google
-                                        @break
-                                    @case(2)
-                                        AI/ML Engineer at Microsoft
-                                        @break
-                                    @case(3)
-                                        UX Design Lead at Apple
-                                        @break
-                                    @case(4)
-                                        DevOps Architect at Amazon
-                                        @break
-                                    @case(5)
-                                        Data Science Director at Netflix
-                                        @break
-                                    @case(6)
-                                        Cybersecurity Expert at Tesla
-                                        @break
-                                    @case(7)
-                                        Mobile Development Lead at Uber
-                                        @break
-                                    @default
-                                        Cloud Solutions Architect at IBM
-                                @endswitch
-                            </p>
+                            <h4 class="teamCard__title">{{ $mentor->name }}</h4>
+                            <p class="teamCard__text">{{ $mentor->expertise }}</p>
                             <div class="teamCard__social">
-                                <a href="#" class="size-40 d-flex justify-center items-center text-purple-1">
+                                @if($mentor->linkedin_profile)
+                                <a href="{{ $mentor->linkedin_profile }}" target="_blank" class="size-40 d-flex justify-center items-center text-purple-1">
                                     <i class="icon-linkedin text-16"></i>
                                 </a>
+                                @endif
                             </div>
                             <div class="teamCard__button">
                                 <a href="#" class="button -sm -outline-purple-1 text-purple-1 col-12 mt-20">Book Mentor Session</a>
@@ -97,7 +47,15 @@
                         </div>
                     </div>
                 </div>
-                @endfor
+                @empty
+                <div class="col-12 text-center"><p>No mentors available yet.</p></div>
+                @endforelse
+            </div>
+
+            <div class="row justify-center pt-40">
+                <div class="col-auto">
+                    {{ $mentors->links('vendor.pagination.custom') }}
+                </div>
             </div>
 
             <div class="row justify-center pt-60">

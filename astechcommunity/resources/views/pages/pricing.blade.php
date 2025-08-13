@@ -1,30 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.front')
 
-  <!-- Google fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+@section('title', 'Membership Plans - AS-Tech Community')
 
-  <link rel="stylesheet" href="../../../cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css') }}" />
-  <link rel="stylesheet" href="../../../cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css') }}" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
-  <link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../../../unpkg.com/leaflet%401.7.1/dist/leaflet.css') }}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ asset('template/css/vendors.css') }}">
-  <link rel="stylesheet" href="{{ asset('template/css/main.css') }}">
-
-  <title>Educrat</title>
-</head>
-
-<body class="preloader-visible" data-barba="wrapper">
+@section('content')
   <!-- preloader start -->
   <div class="preloader js-preloader">
     <div class="preloader__bg"></div>
@@ -34,7 +12,7 @@
 
   <main class="main-content  ">
 
-    <header data-anim="fade" data-add-bg="bg-dark-1" class="header -type-1 js-header">
+    <header data-anim="fade" data-add-bg="bg-dark-1" class="header -type-1 js-header d-none">
 
 
       <div class="header__container">
@@ -871,7 +849,7 @@
                             <a href="{{ route('courses.single-3') }}" class="text-dark-1">Complete Blender Creator: Learn 3D Modelling for Beginners</a>
                             <a href="{{ route('courses.single-4') }}" class="text-dark-1">User Experience Design Essentials - Adobe XD UI UX Design</a>
                             <a href="{{ route('courses.single-5') }}" class="text-dark-1">Graphic Design Masterclass - Learn GREAT Design</a>
-                            <a href="{{ route('courses.single-6') }}" class="text-dark-1">Adobe Photoshop CC – Essentials Training Course</a>
+                            <a href="{{ route('courses.single-6') }}" class="text-dark-1">Adobe Photoshop CC ï¿½ Essentials Training Course</a>
                           </div>
 
                           <div class="mt-30">
@@ -1027,7 +1005,7 @@
 
                 <div data-anim="slide-up delay-2">
 
-                  <p class="page-header__text">We’re on a mission to deliver engaging, curated courses at a reasonable price.</p>
+                  <p class="page-header__text">Weï¿½re on a mission to deliver engaging, curated courses at a reasonable price.</p>
 
                 </div>
               </div>
@@ -1055,142 +1033,29 @@
           </div>
 
           <div class="row y-gap-30 justify-between pt-60 lg:pt-40">
-
+            @forelse($plans as $plan)
             <div class="col-lg-4 col-md-6">
-              <div class="priceCard -type-1 rounded-16 bg-white shadow-2">
+              <div class="priceCard -type-1 rounded-16 bg-white shadow-2 {{ $plan->is_popular ? 'border border-2 border-purple-1' : '' }}">
                 <div class="priceCard__content py-45 px-60 text-center">
-                  <div class="priceCard__type text-18 lh-11 fw-500 text-dark-1">Basic</div>
-                  <div class="priceCard__price text-45 lh-11 fw-700 text-dark-1 mt-15">Free</div>
-                  <div class="priceCard__period">per month</div>
-                  <img class="mt-30" src="{{ asset('template/img/pricing/1.svg') }}" alt="icon">
-                  <div class="priceCard__text text-left pr-15 mt-40">Standard listing submission, active for 30 dayss</div>
-
+                  <div class="priceCard__type text-18 lh-11 fw-500 text-dark-1">{{ $plan->name }}</div>
+                  <div class="priceCard__price text-45 lh-11 fw-700 text-dark-1 mt-15">${{ number_format($plan->price, 2) }}</div>
+                  <div class="priceCard__period">per {{ $plan->billing_cycle }}</div>
+                  <img class="mt-30" src="{{ asset('template/img/pricing/' . (($loop->iteration % 3) ?: 3) . '.svg') }}" alt="icon">
+                  <div class="priceCard__text text-left pr-15 mt-40">{!! nl2br(e(Str::limit($plan->description, 160))) !!}</div>
                   <div class="text-left y-gap-15 mt-35">
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      All Operating Supported
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Great Interface
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Allows encryption
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Face recognized system
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      24/7 Full support
-                    </div>
-
+                    @foreach(($plan->features ?? []) as $feature)
+                      <div><i class="text-purple-1 pr-8" data-feather="check"></i> {{ $feature }}</div>
+                    @endforeach
                   </div>
-
                   <div class="d-inline-block mt-30">
                     <a class="button -md -purple-3 text-purple-1" href="{{ route('register') }}">Get Started Now</a>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="priceCard -type-1 rounded-16 bg-white shadow-2">
-                <div class="priceCard__content py-45 px-60 text-center">
-                  <div class="priceCard__type text-18 lh-11 fw-500 text-dark-1">Professional</div>
-                  <div class="priceCard__price text-45 lh-11 fw-700 text-dark-1 mt-15">$599.95</div>
-                  <div class="priceCard__period">per month</div>
-                  <img class="mt-30" src="{{ asset('template/img/pricing/2.svg') }}" alt="icon">
-                  <div class="priceCard__text text-left pr-15 mt-40">Standard listing submission, active for 30 dayss</div>
-
-                  <div class="text-left y-gap-15 mt-35">
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      All Operating Supported
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Great Interface
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Allows encryption
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Face recognized system
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      24/7 Full support
-                    </div>
-
-                  </div>
-
-                  <div class="d-inline-block mt-30">
-                    <a class="button -md -purple-3 text-purple-1" href="{{ route('register') }}">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="priceCard -type-1 rounded-16 bg-white shadow-2">
-                <div class="priceCard__content py-45 px-60 text-center">
-                  <div class="priceCard__type text-18 lh-11 fw-500 text-dark-1">Business</div>
-                  <div class="priceCard__price text-45 lh-11 fw-700 text-dark-1 mt-15">$999.95</div>
-                  <div class="priceCard__period">per month</div>
-                  <img class="mt-30" src="{{ asset('template/img/pricing/3.svg') }}" alt="icon">
-                  <div class="priceCard__text text-left pr-15 mt-40">Standard listing submission, active for 30 dayss</div>
-
-                  <div class="text-left y-gap-15 mt-35">
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      All Operating Supported
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Great Interface
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Allows encryption
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      Face recognized system
-                    </div>
-
-                    <div>
-                      <i class="text-purple-1 pr-8" data-feather="check"></i>
-                      24/7 Full support
-                    </div>
-
-                  </div>
-
-                  <div class="d-inline-block mt-30">
-                    <a class="button -md -purple-3 text-purple-1" href="{{ route('register') }}">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            @empty
+            <div class="col-12 text-center"><p>No active plans yet.</p></div>
+            @endforelse
           </div>
         </div>
       </section>
@@ -1199,7 +1064,7 @@
         <div data-anim-wrap class="container">
           <div class="row justify-center">
             <div class="col text-center">
-              <p class="text-lg text-dark-1">Trusted by the world’s best</p>
+              <p class="text-lg text-dark-1">Trusted by the worldï¿½s best</p>
             </div>
           </div>
 
@@ -1245,7 +1110,7 @@
         </div>
       </section>
 
-      <footer class="footer -type-1 bg-dark-1 -green-links">
+      <footer class="footer -type-1 bg-dark-1 -green-links d-none">
         <div class="container">
           <div class="footer-header">
             <div class="row y-gap-20 justify-between items-center">
@@ -1323,7 +1188,7 @@
               <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="text-17 fw-500 text-white uppercase mb-25">GET IN TOUCH</div>
                 <div class="footer-columns-form">
-                  <div>We don’t send spam so don’t worry.</div>
+                  <div>We donï¿½t send spam so donï¿½t worry.</div>
                   <form action="https://creativelayers.net/themes/educrat-html/post">
                     <div class="form-group">
                       <input type="text" placeholder="Email...">
@@ -1339,7 +1204,7 @@
             <div class="row justify-between items-center y-gap-20">
               <div class="col-auto">
                 <div class="d-flex items-center h-100 text-white">
-                  © 2022 Educrat. All Right Reserved.
+                  ï¿½ 2022 Educrat. All Right Reserved.
                 </div>
               </div>
 
@@ -1375,8 +1240,7 @@
   <script src="../../../unpkg.com/leaflet%401.7.1/dist/leaflet.js') }}" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="{{ asset('template/js/vendors.js') }}"></script>
   <script src="{{ asset('template/js/main.js') }}"></script>
-</body>
-</html>
+@endsection
 
 
 

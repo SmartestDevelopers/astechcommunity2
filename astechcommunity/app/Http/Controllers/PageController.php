@@ -70,7 +70,13 @@ class PageController extends Controller
     public function error404() { return view('pages.404'); }
     public function cover1() { return view('pages.cover-1'); }
     public function video1() { return view('pages.video-1'); }
-    public function pricing() { return view('pages.pricing'); }
+    public function pricing() {
+        $plans = \App\MembershipPlan::where('is_active', true)
+            ->orderByDesc('is_popular')
+            ->orderBy('sort_order')
+            ->get();
+        return view('pages.pricing', compact('plans'));
+    }
     public function terms() { return view('pages.terms'); }
     public function helpCenter() { return view('pages.help-center'); }
     public function uiElements() { return view('pages.ui-elements'); }

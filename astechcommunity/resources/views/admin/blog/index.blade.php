@@ -155,10 +155,10 @@
     <div class="row mt-30">
         <div class="col-md-3 col-6">
             <div class="bg-white rounded-8 shadow-2 px-20 py-20">
-                <div class="d-flex items-center">
-                    <div class="icon-file-text text-24 text-green-1 mr-15"></div>
-                    <div>
-                        <div class="text-18 fw-700">{{ $posts->total() }}</div>
+                         <div class="d-flex items-center">
+                            <div class="icon-file-text text-24 text-green-1 mr-15"></div>
+                            <div>
+                                <div class="text-18 fw-700">{{ $totalPosts ?? $posts->total() }}</div>
                         <div class="text-13 text-dark-1">Total Posts</div>
                     </div>
                 </div>
@@ -167,10 +167,10 @@
         
         <div class="col-md-3 col-6">
             <div class="bg-white rounded-8 shadow-2 px-20 py-20">
-                <div class="d-flex items-center">
+                         <div class="d-flex items-center">
                     <div class="icon-check text-24 text-purple-1 mr-15"></div>
                     <div>
-                        <div class="text-18 fw-700">{{ $posts->where('is_published', true)->count() }}</div>
+                                <div class="text-18 fw-700">{{ $publishedPostsCount ?? 0 }}</div>
                         <div class="text-13 text-dark-1">Published</div>
                     </div>
                 </div>
@@ -179,10 +179,10 @@
         
         <div class="col-md-3 col-6">
             <div class="bg-white rounded-8 shadow-2 px-20 py-20">
-                <div class="d-flex items-center">
+                         <div class="d-flex items-center">
                     <div class="icon-edit text-24 text-orange-1 mr-15"></div>
                     <div>
-                        <div class="text-18 fw-700">{{ $posts->where('is_published', false)->count() }}</div>
+                                <div class="text-18 fw-700">{{ $draftPostsCount ?? 0 }}</div>
                         <div class="text-13 text-dark-1">Drafts</div>
                     </div>
                 </div>
@@ -191,10 +191,10 @@
         
         <div class="col-md-3 col-6">
             <div class="bg-white rounded-8 shadow-2 px-20 py-20">
-                <div class="d-flex items-center">
+                         <div class="d-flex items-center">
                     <div class="icon-calendar text-24 text-red-1 mr-15"></div>
                     <div>
-                        <div class="text-18 fw-700">{{ $posts->whereDate('created_at', today())->count() }}</div>
+                                <div class="text-18 fw-700">{{ $todayPostsCount ?? 0 }}</div>
                         <div class="text-13 text-dark-1">Today</div>
                     </div>
                 </div>

@@ -316,6 +316,13 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route('admin.courses.index') }}" class="nav-link {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>Courses Management</p>
+            </a>
+          </li>
+
           <!-- Community -->
           <li class="nav-header">COMMUNITY</li>
           
