@@ -1,37 +1,22 @@
-@extends('layouts.front')
+@extends('layouts.admin')
 
-@section('title', 'Service Details - Admin')
+@section('title', 'Service Details')
 
 @section('content')
-<div class="container py-60">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex items-center justify-between mb-30">
-                <div class="d-flex items-center">
-                    <a href="{{ route('admin.services.index') }}" class="button -sm -outline-purple-1 text-purple-1 mr-20">
-                        <i class="icon-arrow-left mr-10"></i>Back to Services
-                    </a>
-                    <div>
-                        <h1 class="text-30 lh-15 fw-700">Service Details</h1>
-                        <p class="text-15 text-dark-1">View complete service information</p>
-                    </div>
-                </div>
-                <div class="d-flex x-gap-15">
-                    <a href="{{ route('admin.services.edit', $service) }}" class="button -md -green-1 text-white">
-                        <i class="icon-edit mr-10"></i>Edit Service
-                    </a>
-                    <form method="POST" action="{{ route('admin.services.destroy', $service) }}" 
-                          style="display: inline-block;" onsubmit="return confirmDelete()">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="button -md -red-1 text-white">
-                            <i class="icon-trash mr-10"></i>Delete Service
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="admin-page-header d-flex justify-content-between align-items-center">
+  <div>
+    <h1 class="admin-page-title">Service Details</h1>
+    <div class="text-muted">View complete service information</div>
+  </div>
+  <div>
+    <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-success mr-2"><i class="fas fa-edit mr-1"></i> Edit</a>
+    <form method="POST" action="{{ route('admin.services.destroy', $service) }}" class="d-inline" onsubmit="return confirmDelete()">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i> Delete</button>
+    </form>
+  </div>
+  </div>
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -40,158 +25,101 @@
         </div>
     @endif
 
-    <div class="row y-gap-30">
+    <div class="row">
         <!-- Main Service Information -->
         <div class="col-lg-8">
-            <div class="bg-white rounded-8 shadow-2 px-30 py-30">
+            <div class="card">
+                <div class="card-body">
                 <div class="d-flex items-start justify-between mb-20">
                     <div>
-                        <h3 class="text-24 lh-15 fw-700 mb-10">{{ $service->title }}</h3>
-                        <div class="d-flex items-center x-gap-20">
-                            <span class="badge -purple-1 text-purple-1 text-13 fw-500">{{ $service->category }}</span>
-                            <span class="badge {{ $service->is_active ? '-green-1 text-green-1' : '-red-1 text-red-1' }} text-13 fw-500">
-                                {{ $service->is_active ? 'Active' : 'Inactive' }}
-                            </span>
+                        <h3 class="mb-2">{{ $service->title }}</h3>
+                        <div class="d-flex align-items-center">
+                            <span class="badge badge-info mr-2">{{ $service->category }}</span>
+                            <span class="badge {{ $service->is_active ? 'badge-success' : 'badge-secondary' }}">{{ $service->is_active ? 'Active' : 'Inactive' }}</span>
                         </div>
                     </div>
                     <div class="text-right">
-                        <div class="text-24 fw-700 text-green-1">${{ number_format($service->price, 2) }}</div>
-                        <div class="text-14 text-dark-1">{{ $service->duration }}</div>
+                        <div class="h4 text-success mb-0">${{ number_format($service->price, 2) }}</div>
+                        <div class="text-muted">{{ $service->duration }}</div>
                     </div>
                 </div>
 
                 @if($service->featured_image)
-                    <div class="mb-30">
+                    <div class="mb-3">
                         <img src="{{ $service->featured_image }}" alt="{{ $service->title }}" 
-                             class="w-100 rounded-8" style="max-height: 300px; object-fit: cover;">
+                             class="img-fluid rounded" style="max-height: 300px; object-fit: cover;">
                     </div>
                 @endif
 
-                <div class="mb-30">
-                    <h5 class="text-18 fw-500 mb-15">Service Description</h5>
-                    <div class="text-15 lh-1-6 text-dark-1">
+                <div class="mb-3">
+                    <h5 class="card-title">Service Description</h5>
+                    <div>
                         {!! nl2br(e($service->description)) !!}
                     </div>
                 </div>
 
                 @if($service->tags)
-                    <div class="mb-20">
-                        <h6 class="text-16 fw-500 mb-15">Tags</h6>
-                        <div class="d-flex flex-wrap x-gap-10 y-gap-10">
+                    <div class="mb-2">
+                        <h6 class="mb-2">Tags</h6>
+                        <div class="d-flex flex-wrap">
                             @foreach(explode(',', $service->tags) as $tag)
-                                <span class="badge -outline-purple-1 text-purple-1 text-13">{{ trim($tag) }}</span>
+                                <span class="badge badge-light mr-1">{{ trim($tag) }}</span>
                             @endforeach
                         </div>
                     </div>
                 @endif
+                </div>
             </div>
         </div>
 
         <!-- Service Metadata -->
         <div class="col-lg-4">
-            <div class="bg-white rounded-8 shadow-2 px-25 py-30">
-                <h5 class="text-18 fw-500 mb-20">Service Information</h5>
-                
-                <div class="y-gap-20">
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Service ID</span>
-                        <span class="text-14 fw-500">#{{ $service->id }}</span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Category</span>
-                        <span class="text-14 fw-500">{{ $service->category }}</span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Price</span>
-                        <span class="text-14 fw-500 text-green-1">${{ number_format($service->price, 2) }}</span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Duration</span>
-                        <span class="text-14 fw-500">{{ $service->duration }}</span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Status</span>
-                        <span class="badge {{ $service->is_active ? '-green-1 text-green-1' : '-red-1 text-red-1' }} text-11">
-                            {{ $service->is_active ? 'Active' : 'Inactive' }}
-                        </span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Created</span>
-                        <span class="text-14 fw-500">{{ $service->created_at->format('M d, Y') }}</span>
-                    </div>
-
-                    <div class="d-flex justify-between items-center py-10 border-bottom-light">
-                        <span class="text-14 text-dark-1">Last Updated</span>
-                        <span class="text-14 fw-500">{{ $service->updated_at->format('M d, Y') }}</span>
-                    </div>
-
-                    @if($service->featured_image)
-                        <div class="d-flex justify-between items-center py-10">
-                            <span class="text-14 text-dark-1">Featured Image</span>
-                            <a href="{{ $service->featured_image }}" target="_blank" class="text-14 fw-500 text-purple-1">
-                                <i class="icon-external-link"></i> View
-                            </a>
-                        </div>
-                    @endif
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Service Information</h5>
+                <div>
+                  <div class="d-flex justify-content-between py-1"><span>Service ID</span><span>#{{ $service->id }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Category</span><span>{{ $service->category }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Price</span><span class="text-success">${{ number_format($service->price, 2) }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Duration</span><span>{{ $service->duration }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Status</span><span class="badge {{ $service->is_active ? 'badge-success' : 'badge-secondary' }}">{{ $service->is_active ? 'Active' : 'Inactive' }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Created</span><span>{{ $service->created_at->format('M d, Y') }}</span></div>
+                  <div class="d-flex justify-content-between py-1"><span>Last Updated</span><span>{{ $service->updated_at->format('M d, Y') }}</span></div>
+                  @if($service->featured_image)
+                    <div class="d-flex justify-content-between py-1 align-items-center"><span>Featured Image</span><a href="{{ $service->featured_image }}" target="_blank">View</a></div>
+                  @endif
                 </div>
+              </div>
             </div>
 
             <!-- Quick Actions -->
-            <div class="bg-white rounded-8 shadow-2 px-25 py-30 mt-30">
-                <h5 class="text-18 fw-500 mb-20">Quick Actions</h5>
-                
-                <div class="d-flex flex-column y-gap-15">
-                    <a href="{{ route('admin.services.edit', $service) }}" class="button -sm -outline-green-1 text-green-1">
-                        <i class="icon-edit mr-10"></i>Edit Service
-                    </a>
-                    
-                    <button onclick="duplicateService()" class="button -sm -outline-blue-1 text-blue-1">
-                        <i class="icon-copy mr-10"></i>Duplicate Service
-                    </button>
-
-                    <form method="POST" action="{{ route('admin.services.destroy', $service) }}" onsubmit="return confirmDelete()">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="button -sm -outline-red-1 text-red-1 w-100">
-                            <i class="icon-trash mr-10"></i>Delete Service
-                        </button>
-                    </form>
-
-                    <a href="{{ route('admin.services.index') }}" class="button -sm -outline-dark-1 text-dark-1">
-                        <i class="icon-list mr-10"></i>All Services
-                    </a>
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <div>
+                  <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-sm btn-outline-success mr-2"><i class="fas fa-edit mr-1"></i> Edit</a>
+                  <button onclick="duplicateService()" class="btn btn-sm btn-outline-info mr-2"><i class="fas fa-copy mr-1"></i> Duplicate</button>
+                  <form method="POST" action="{{ route('admin.services.destroy', $service) }}" class="d-inline" onsubmit="return confirmDelete()">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash mr-1"></i> Delete</button>
+                  </form>
+                  <a href="{{ route('admin.services.index') }}" class="btn btn-sm btn-outline-secondary ml-2"><i class="fas fa-list mr-1"></i> All Services</a>
                 </div>
+              </div>
             </div>
 
             <!-- Service Stats (if needed) -->
-            <div class="bg-white rounded-8 shadow-2 px-25 py-30 mt-30">
-                <h5 class="text-18 fw-500 mb-20">Service Stats</h5>
-                
-                <div class="y-gap-15">
-                    <div class="d-flex justify-between items-center">
-                        <span class="text-14 text-dark-1">Views</span>
-                        <span class="text-14 fw-500">-</span>
-                    </div>
-                    
-                    <div class="d-flex justify-between items-center">
-                        <span class="text-14 text-dark-1">Inquiries</span>
-                        <span class="text-14 fw-500">-</span>
-                    </div>
-                    
-                    <div class="d-flex justify-between items-center">
-                        <span class="text-14 text-dark-1">Bookings</span>
-                        <span class="text-14 fw-500">-</span>
-                    </div>
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">Service Stats</h5>
+                <div>
+                  <div class="d-flex justify-content-between"><span>Views</span><span>-</span></div>
+                  <div class="d-flex justify-content-between"><span>Inquiries</span><span>-</span></div>
+                  <div class="d-flex justify-content-between"><span>Bookings</span><span>-</span></div>
                 </div>
-                
-                <small class="text-12 text-dark-1 mt-10">
-                    Stats tracking will be available in future updates
-                </small>
+                <small class="text-muted d-block mt-2">Stats tracking will be available in future updates</small>
+              </div>
             </div>
         </div>
     </div>

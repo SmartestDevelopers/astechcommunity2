@@ -18,7 +18,7 @@
             <td>{{ $freelancer->id }}</td>
             <td>{{ $freelancer->name }}</td>
             <td>{{ $freelancer->email }}</td>
-            <td>{{ Str::limit($freelancer->skills, 40) }}</td>
+            <td>{{ Str::limit(is_array($freelancer->skills) ? implode(', ', $freelancer->skills) : (string) $freelancer->skills, 40) }}</td>
             <td>${{ number_format($freelancer->hourly_rate, 2) }}</td>
             <td>{{ $freelancer->is_verified ? 'Yes' : 'No' }}</td>
             <td class="text-right">

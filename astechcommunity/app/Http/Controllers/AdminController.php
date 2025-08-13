@@ -279,8 +279,8 @@ class AdminController extends Controller
     {
         $posts = BlogPost::latest()->paginate(10);
         $totalPosts = BlogPost::count();
-        $publishedPostsCount = BlogPost::where('is_published', true)->count();
-        $draftPostsCount = BlogPost::where('is_published', false)->count();
+        $publishedPostsCount = BlogPost::where('status', 'published')->count();
+        $draftPostsCount = BlogPost::where('status', 'draft')->count();
         $todayPostsCount = BlogPost::whereDate('created_at', now()->toDateString())->count();
         return view('admin.blog.index', compact('posts', 'totalPosts', 'publishedPostsCount', 'draftPostsCount', 'todayPostsCount'));
     }
@@ -292,26 +292,33 @@ class AdminController extends Controller
 
     public function blogStore(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'excerpt' => 'nullable|string',
-            'author' => 'required|string|max:100',
-            'category' => 'required|string|max:100',
-            'is_published' => 'boolean',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
-            'tags' => 'nullable|string',
+            'tags' => 'nullable',
             'published_at' => 'nullable|date',
         ]);
 
-        $validated['is_published'] = $request->has('is_published');
-        $validated['slug'] = \Str::slug($validated['title']);
+        $payload = [
+            'title' => $data['title'],
+            'slug' => \Str::slug($data['title']),
+            'content' => $data['content'],
+            'excerpt' => $data['excerpt'] ?? null,
+            'author_id' => auth()->id() ?? 1,
+            'category_id' => null,
+            'tags' => is_string($data['tags'] ?? null) ? array_map('trim', explode(',', $data['tags'])) : ($data['tags'] ?? []),
+            'status' => $request->has('is_published') ? 'published' : 'draft',
+            'published_at' => $data['published_at'] ?? now(),
+            'is_featured' => false,
+        ];
 
         if ($request->hasFile('featured_image')) {
-            $validated['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
+            $payload['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
         }
 
-        BlogPost::create($validated);
+        BlogPost::create($payload);
 
         return redirect()->route('admin.blog.index')->with('success', 'Blog post created successfully!');
     }
@@ -328,26 +335,30 @@ class AdminController extends Controller
 
     public function blogUpdate(Request $request, BlogPost $post)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'excerpt' => 'nullable|string',
-            'author' => 'required|string|max:100',
-            'category' => 'required|string|max:100',
-            'is_published' => 'boolean',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
-            'tags' => 'nullable|string',
+            'tags' => 'nullable',
             'published_at' => 'nullable|date',
         ]);
 
-        $validated['is_published'] = $request->has('is_published');
-        $validated['slug'] = \Str::slug($validated['title']);
+        $payload = [
+            'title' => $data['title'],
+            'slug' => \Str::slug($data['title']),
+            'content' => $data['content'],
+            'excerpt' => $data['excerpt'] ?? null,
+            'tags' => is_string($data['tags'] ?? null) ? array_map('trim', explode(',', $data['tags'])) : ($data['tags'] ?? []),
+            'status' => $request->has('is_published') ? 'published' : 'draft',
+            'published_at' => $data['published_at'] ?? $post->published_at ?? now(),
+        ];
 
         if ($request->hasFile('featured_image')) {
-            $validated['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
+            $payload['featured_image'] = $request->file('featured_image')->store('uploads/blog', 'public');
         }
 
-        $post->update($validated);
+        $post->update($payload);
 
         return redirect()->route('admin.blog.index')->with('success', 'Blog post updated successfully!');
     }

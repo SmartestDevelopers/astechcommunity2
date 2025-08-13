@@ -1,20 +1,15 @@
-@extends('layouts.front')
+@extends('layouts.admin')
 
-@section('title', 'Create New FAQ - Admin')
+@section('title', 'Create New FAQ')
 
 @section('content')
 <div class="container py-60">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex items-center mb-30">
-                <a href="{{ route('admin.faqs.index') }}" class="button -sm -outline-orange-1 text-orange-1 mr-20">
-                    <i class="icon-arrow-left mr-10"></i>Back to FAQs
-                </a>
-                <div>
-                    <h1 class="text-30 lh-15 fw-700">Create New FAQ</h1>
-                    <p class="text-15 text-dark-1">Add a new frequently asked question</p>
-                </div>
-            </div>
+            <div class="admin-page-header d-flex justify-content-between align-items-center">
+              <h1 class="admin-page-title">Create FAQ</h1>
+              <a href="{{ route('admin.faqs.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-1"></i> Back</a>
+              </div>
         </div>
     </div>
 
